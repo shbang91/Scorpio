@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <name>gazebo_scorpio_plugin</name>
+  <version>0.0.1</version>
+  <description>The gazebo_scorpio_plugin package</description>
+
+  <maintainer email="bangsh0718@gmail.com">bangsh0718</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+  <export>
+	<gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" />
+  </export>
+</package>
