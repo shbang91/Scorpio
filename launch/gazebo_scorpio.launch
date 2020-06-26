@@ -1,24 +1,13 @@
 <launch>
 <!-- Robot pose -->
-<arg name="x" default="0"/>
-<arg name="y" default="0"/>
-<arg name="z" default="0"/>
-<arg name="roll" default="0"/>
-<arg name="pitch" default="0"/>
-<arg name="yaw" default="0"/>
-
-<arg name="robot" default="scorpio" />
-
+<!--<arg name="x" default="0"/>-->
+<!--<arg name="y" default="0"/>-->
+<!--<arg name="z" default="0"/>-->
+<!--<arg name="roll" default="0"/>-->
+<!--<arg name="pitch" default="0"/>-->
+<!--<arg name="yaw" default="0"/>-->
 <include file="$(find gazebo_ros)/launch/empty_world.launch">
-<arg name="world_name" value="$(find gazebo_scorpio_plugin)/worlds/scorpio.world"/>
-<arg name="paused" value="True" />
+    <arg name="world_name" value="$(find gazebo_scorpio_plugin)/worlds/scorpio.world"/>
+    <arg name="paused" value="True" />
 </include>
-
-<!-- load robot -->
-<param name="robot_description" 
-textfile="$(find gazebo_scorpio_plugin)/robots/Scorpio_Kin_robotiq.urdf" />
-<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />  
-<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-args="-urdf -model scorpio -param robot_description"/>
-
 </launch>

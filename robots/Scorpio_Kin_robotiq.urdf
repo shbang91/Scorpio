@@ -9,7 +9,7 @@
    </link>
    <joint name="tower_mount" type="fixed">
     <!--<origin rpy="0 0 -1.57" xyz="3.5 1.0 0.5"/>-->
-    <origin rpy="0 0 -1.57" xyz="0 0 0"/>
+    <origin rpy="0 0 -1.57" xyz="0 0 0.5"/>
     <parent link="world"/>
     <child link="tower"/>
    </joint>
@@ -32,6 +32,7 @@
       <origin rpy="0 0 0" xyz="0 0 0.1"/>
       <geometry>
         <box size="0.0762 0.0762 1.3624"/>
+        <!--<box size="0.0762 0.0762 1.7624"/>-->
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1"/>
@@ -169,6 +170,7 @@
     </visual>
   </link>
 
+
   <joint name="joint5" type="continuous">
     <origin xyz="0.065 0.035 -0.065" rpy="1.5708 0 0" />
     <parent link="link3" />
@@ -269,8 +271,10 @@
   <link name="link7_end">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <mass value="0.00000001" />
-      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+      <!--<mass value="0.00000001" />-->
+      <!--<inertia ixx="1.e-9" ixy="0.0" ixz="0.0" iyy="1.e-9" iyz="0.0" izz="1.e-9" />-->
+      <mass value="0.00001" />
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
     </inertial>
   </link>
 
@@ -304,7 +308,7 @@
     </visual>
   </link>
 
-  <joint name="joint10" type="revolute">
+  <joint name="joint10" type="continuous">
      <!--<joint name="wrist_pitch" type="fixed"> -->
     <origin rpy="0 0.7854 0" xyz="0.034604 -0.04372 -0.060104"/>
     <parent link="link9"/>
@@ -405,15 +409,15 @@
           rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/robotiq_85_base_link_coarse.STL" />
-      </geometry>
-    </collision>
+    <!--<collision>-->
+      <!--<origin-->
+        <!--xyz="0 0 0"-->
+        <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<mesh-->
+          <!--filename="package://gazebo_scorpio_plugin/robots/meshes/robotiq_85_base_link_coarse.STL" />-->
+      <!--</geometry>-->
+    <!--</collision>-->
   </link>
   <link
     name="left_outer_knuckle">
@@ -445,19 +449,19 @@
           rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_coarse.STL" />
-      </geometry>
-    </collision>
+    <!--<collision>-->
+      <!--<origin-->
+        <!--xyz="0 0 0"-->
+        <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<mesh-->
+          <!--filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_coarse.STL" />-->
+      <!--</geometry>-->
+    <!--</collision>-->
   </link>
   <joint
     name="finger_joint"
-    type="revolute">
+    type="fixed">
     <origin
       xyz="0.0306011444260539 0 0.0627920162695395"
       rpy="0 0 0" />
@@ -503,15 +507,15 @@
           rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_coarse.STL" />
-      </geometry>
-    </collision>
+    <!--<collision>-->
+      <!--<origin-->
+        <!--xyz="0 0 0"-->
+        <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<mesh-->
+          <!--filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_coarse.STL" />-->
+      <!--</geometry>-->
+    <!--</collision>-->
   </link>
   <joint
     name="left_outer_finger_joint"
@@ -556,19 +560,19 @@
           rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_coarse.STL" />
-      </geometry>
-    </collision>
+    <!--<collision>-->
+      <!--<origin-->
+        <!--xyz="0 0 0"-->
+        <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<mesh-->
+          <!--filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_coarse.STL" />-->
+      <!--</geometry>-->
+    <!--</collision>-->
   </link>
   <joint
     name="left_inner_knuckle_joint"
-    type="revolute">
+    type="fixed">
     <origin
       xyz="0.0127000000001501 0 0.0693074999999639"
       rpy="0 0 0" />
@@ -618,19 +622,19 @@
           rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_coarse.STL" />
-      </geometry>
-    </collision>
+    <!--<collision>-->
+      <!--<origin-->
+        <!--xyz="0 0 0"-->
+        <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<mesh-->
+          <!--filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_coarse.STL" />-->
+      <!--</geometry>-->
+    <!--</collision>-->
   </link>
   <joint
     name="left_inner_finger_joint"
-    type="revolute">
+    type="fixed">
     <origin
       xyz="0.034585310861294 0 0.0454970193817975"
       rpy="0 0 0" />
@@ -680,19 +684,19 @@
           rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_coarse.STL" />
-      </geometry>
-    </collision>
+    <!--<collision>-->
+      <!--<origin-->
+        <!--xyz="0 0 0"-->
+        <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<mesh-->
+          <!--filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_coarse.STL" />-->
+      <!--</geometry>-->
+    <!--</collision>-->
   </link>
   <joint
     name="right_inner_knuckle_joint"
-    type="revolute">
+    type="fixed">
     <origin
       xyz="-0.0126999999998499 0 0.0693075000000361"
       rpy="0 0 3.14159265358979" />
@@ -742,19 +746,19 @@
           rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_coarse.STL" />
-      </geometry>
-    </collision>
+    <!--<collision>-->
+      <!--<origin-->
+        <!--xyz="0 0 0"-->
+        <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<mesh-->
+          <!--filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_coarse.STL" />-->
+      <!--</geometry>-->
+    <!--</collision>-->
   </link>
   <joint
     name="right_inner_finger_joint"
-    type="revolute">
+    type="fixed">
     <origin
       xyz="0.0341060475457406 0 0.0458573878541688"
       rpy="0 0 0" />
@@ -804,19 +808,19 @@
           rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_coarse.STL" />
-      </geometry>
-    </collision>
+    <!--<collision>-->
+      <!--<origin-->
+        <!--xyz="0 0 0"-->
+        <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<mesh-->
+          <!--filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_coarse.STL" />-->
+      <!--</geometry>-->
+    <!--</collision>-->
   </link>
   <joint
     name="right_outer_knuckle_joint"
-    type="revolute">
+    type="fixed">
     <origin
       xyz="-0.0306011444258893 0 0.0627920162695395"
       rpy="0 0 3.14159265358979" />
@@ -863,15 +867,15 @@
         <color rgba="0.1 0.1 0.1 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_coarse.STL" />
-      </geometry>
-    </collision>
+    <!--<collision>-->
+      <!--<origin-->
+        <!--xyz="0 0 0"-->
+        <!--rpy="0 0 0" />-->
+      <!--<geometry>-->
+        <!--<mesh-->
+          <!--filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_coarse.STL" />-->
+      <!--</geometry>-->
+    <!--</collision>-->
   </link>
   <joint
     name="right_outer_finger_joint"
@@ -925,4 +929,72 @@
     <parent link="link8" />
     <child link="link8_end" />
   </joint>
+
+  <gazebo>
+      <joint name="constraint1" type="revolute">
+          <parent>link4</parent>
+          <child>link1</child>
+          <!--<pose> 0.09 0.065 -0.040025 -1.57 0 0 </pose>-->
+          <!--<pose> 0.089949 0.065072 -0.040025 -1.57 0 0 </pose>-->
+          <!--<pose> 0.09 0.1225 -0.034975 -1.57 0 0 </pose>-->
+          <pose> 0.09 0.065 -0.035 -1.57 0 0 </pose>
+          <axis>
+              <xyz>1 0 0</xyz>
+              <limit>
+                  <lower>-1</lower>
+                  <upper>1</upper>
+              </limit>
+              <dynamics>
+                  <spring_reference>0</spring_reference>
+                  <spring_stiffness>0</spring_stiffness>
+              </dynamics>
+              <use_parent_model_frame>1</use_parent_model_frame>
+
+          </axis>
+          <!--<physics>-->
+              <!--<ode>-->
+                  <!--<implicit_spring_damper>1</implicit_spring_damper>-->
+                  <!--<cfm_damping>1</cfm_damping>-->
+                  <!--<limit>-->
+                      <!--<cfm>0</cfm>-->
+                      <!--<erp>0.2</erp>-->
+                  <!--</limit>-->
+              <!--</ode>-->
+          <!--</physics>-->
+      </joint>
+  </gazebo>
+
+  <gazebo>
+        <joint name="constraint2" type="revolute">
+          <parent>link8</parent>
+          <child>link5</child>
+          <!--<pose> 0.09 0.065 -0.040025 -1.57 0 0 </pose>-->
+          <!--<pose> 0.089949 0.065072 -0.040025 -1.57 0 0 </pose>-->
+          <!--<pose> 0.09 0.1225 -0.034975 -1.57 0 0 </pose>-->
+          <pose> 0.09 0.065 -0.035 -1.57 0 0 </pose>
+          <axis>
+              <xyz>1 0 0</xyz>
+              <limit>
+                  <lower>-1</lower>
+                  <upper>1</upper>
+              </limit>
+              <dynamics>
+                  <spring_reference>0</spring_reference>
+                  <spring_stiffness>0</spring_stiffness>
+              </dynamics>
+              <use_parent_model_frame>1</use_parent_model_frame>
+
+          </axis>
+          <!--<physics>-->
+              <!--<ode>-->
+                  <!--<implicit_spring_damper>1</implicit_spring_damper>-->
+                  <!--<cfm_damping>1</cfm_damping>-->
+                  <!--<limit>-->
+                      <!--<cfm>0</cfm>-->
+                      <!--<erp>0.2</erp>-->
+                  <!--</limit>-->
+              <!--</ode>-->
+          <!--</physics>-->
+      </joint>
+  </gazebo>
 </robot>
