@@ -25,3 +25,8 @@ In order to use the gazebo launch file, you have to expand the gazebo's model pa
 Add the following to your ~/.bashrc file:
 
 export GAZEBO_MODEL_PATH=~/${your catkin ws}/src/:$GAZEBO_MODEL_PATH
+
+After compiling plugin package, Scorpio can be simulated in Gazebo via:
+```
+$ roslaunch gazebo_scorpio_plugin gazebo_scorpio.launch
+```
