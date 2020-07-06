@@ -3,6 +3,7 @@
 #include <gazebo/common/common.hh>
 #include <boost/bind.hpp>
 #include <ros/ros.h>
+#include "geometry_msgs/Point.h"
 
 #include <Eigen/Dense>
 
@@ -62,6 +63,15 @@ namespace gazebo
                 total_num_joint_idx_ << 1,2,3,4,5,6,7,8,9,10,11; 
                 active_joint_idx_ << 1,2,5,6,9,10,11;
 
+                if (!ros::isInitialized())
+                {
+                    ROS_FATAL_STREAM("A ROS node for Gazebo has not been initialized, unable to load plugin. "
+                                             << "Load the Gazebo system plugin 'libgazebo_ros_api_plugin.so' in the gazebo_ros package)");
+                    return;
+                }
+
+                this->rosNode.reset(new ros::NodeHandle("scorpio"));
+                this->rosSub = this->rosNode->subscribe("moveAbsolute", 1000, &ScorpioPlugin::OnRosMsg, this);
 
             }
             // Called by the world update start event
@@ -91,6 +101,11 @@ namespace gazebo
                 }
             }
 
+            void OnRosMsg(geometry_msgs::Point p) {
+                ROS_INFO("Hello World!");
+                //interface_->Grasp();//MoveEndEffectorTo(p.x, p.y, p.z);
+            }
+
 
         private: 
             physics::ModelPtr model; //pointer to the model
@@ -104,6 +119,9 @@ namespace gazebo
             ScorpioInterface* interface_;
             ScorpioSensorData* sensordata_;
             ScorpioCommand* command_;
+            //Ros Stuff
+            std::unique_ptr<ros::NodeHandle> rosNode;
+            ros::Subscriber rosSub;
     };
 
     // Register this plugin with the simulator
