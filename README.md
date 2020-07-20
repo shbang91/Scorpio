@@ -30,3 +30,8 @@ After compiling plugin package, Scorpio can be simulated in Gazebo via:
 ```
 $ roslaunch gazebo_scorpio_plugin gazebo_scorpio.launch
 ```
+
+Will's branch stuff:
+
+I've not tested if things work without this step, but currently I recommend cloning and following the build instructions
+for this repo: https://github.com/SyrianSpock/realsense_gazebo_plugin
