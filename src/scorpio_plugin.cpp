@@ -80,6 +80,39 @@ namespace gazebo
                 //myUtils::pretty_print(q_, std::cout, "joint pos");
                 //myUtils::pretty_print(qdot_, std::cout, "joint vel");
 
+                // ================================================
+                // Scorpio grasp APIs Examples
+                // ================================================
+
+                static bool b_move_cmd(true);
+                if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_move_cmd) {
+                    std::cout << "First Moving Command Received" << std::endl;
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.4, 0.2, 0.1);
+                    b_move_cmd = false;
+                }
+
+                static bool b_grasp_cmd(true);
+                if (((ScorpioInterface*)interface_)->IsReadyToGrasp() && b_grasp_cmd) {
+                    std::cout << "First Grasping Command Received" << std::endl;
+                    ((ScorpioInterface*)interface_)->Grasp();
+                    b_grasp_cmd = false;
+                }
+
+                static bool b_move_while_hold_cmd(true);
+                if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_move_while_hold_cmd) {
+                    std::cout << "First Moving While Holding Command Received" << std::endl;
+                    //Eigen::Vector3d des_rel_pos(0.2,-0.1,-0.05);
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(0.4, -0.2, -0.1);
+                    b_move_while_hold_cmd = false;
+                }
+
+                static bool b_release_cmd(true);
+                if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_release_cmd) {
+                    std::cout << "First Release Command Received" << std::endl;
+                    ((ScorpioInterface*)interface_)->Release();
+                    b_release_cmd = false;
+                }
+
                 sensordata_->q = q_;
                 sensordata_->qdot = qdot_;
                 interface_ -> getCommand(sensordata_,command_); 
