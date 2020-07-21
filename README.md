@@ -10,7 +10,7 @@ $ cd 'your catkin workspace src' && git clone --recurse https://github.com/shban
 
 ## Install Required Dependancies
 Make sure [PnC Package](http://github.com/shbang91/PnC.git) is installed.
-Clone the repo and checkout to Gazebo_PnC_Integration branch
+Clone the repo and checkout to Gazebo_Scorpio branch
 ```
 $ mkdir build && cd build && cmake..
 $ make -j
