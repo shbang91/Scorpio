@@ -4,6 +4,7 @@
 #include <boost/bind.hpp>
 #include <ros/ros.h>
 #include "geometry_msgs/Point.h"
+#include <tf/transform_broadcaster.h>
 
 #include <Eigen/Dense>
 
@@ -21,9 +22,13 @@ namespace gazebo
                 q_ = Eigen::VectorXd::Zero(11);
                 qdot_ = Eigen::VectorXd::Zero(11);
 
+                std::cout << "====================pre construction===================" << std::endl;
                 interface_ = new ScorpioInterface();
+                std::cout << "====================interface constructed==============" << std::endl;
                 sensordata_ = new ScorpioSensorData();
+                std::cout << "====================sensor data constructed============" << std::endl;
                 command_ = new ScorpioCommand();
+                std::cout << "====================command constructed================" << std::endl;
             }
 
             ~ScorpioPlugin(){
@@ -46,18 +51,17 @@ namespace gazebo
                 physics::Joint_V joints = this->model->GetJoints();
                 physics::Link_V links = this->model->GetLinks();
 
-                //std::cout << "====================" << std::endl;
-                //std::cout << "joint name" << std::endl;
-                //for (int i = 0; i < joints.size(); ++i) {
-                   //std::cout << joints[i]->GetName() << std::endl;
-                //}
+                // std::cout << "====================" << std::endl;
+                // std::cout << "joint name" << std::endl;
+                // for (int i = 0; i < joints.size(); ++i) {
+                //    std::cout << joints[i]->GetName() << std::endl;
+                // }
 
-                //std::cout << "====================" << std::endl;
-                //std::cout << "link name" << std::endl;
-                //for (int i = 0; i < links.size(); ++i) {
-                   //std::cout << links[i]->GetName() << std::endl;
-                //}
-                //std::cout << "====================" << std::endl;
+                std::cout << "====================" << std::endl;
+                std::cout << "link name" << std::endl;
+                for (int i = 0; i < links.size(); ++i) {
+                   std::cout << links[i]->GetName() << std::endl;
+                }
 
                 //Closed loop
                 total_num_joint_idx_ << 1,2,3,4,5,6,7,8,9,10,11; 
@@ -83,27 +87,48 @@ namespace gazebo
 
                 gazebo::physics::Joint_V joints = this->model->GetJoints();
 
+                //std::cout << "==========READ==========" << std::endl;
+
                 for (int i = 0; i < total_num_joint_idx_.size(); ++i) {
                     q_[i] = joints[total_num_joint_idx_[i]]->Position(0);
+                    //std::cout << joints[total_num_joint_idx_[i]]->GetName() << std::endl;
                     qdot_[i] = joints[total_num_joint_idx_[i]] ->GetVelocity(0);
                 }
                 //myUtils::pretty_print(q_, std::cout, "joint pos");
                 //myUtils::pretty_print(qdot_, std::cout, "joint vel");
+                
 
                 sensordata_->q = q_;
                 sensordata_->qdot = qdot_;
-                interface_ -> getCommand(sensordata_,command_); 
+                interface_ -> getCommand(sensordata_,command_);
 
+                //std::cout << "=========WRITE=========" << std::endl;
                 for (int i = 0; i < active_joint_idx_.size(); ++i) {
+                   //std::cout << joints[active_joint_idx_[i]]->GetName() << std::endl;
                    joints[active_joint_idx_[i]]->SetForce(0,command_->jtrq[i]); 
                    //joints[active_joint_idx_[i]]->SetForce(0,-qdot_[i]); 
                    //joints[active_joint_idx_[i]]->SetForce(0,0); 
                 }
+
+                // static tf::TransformBroadcaster br;
+                // tf::Transform transform;
+                // transform.setOrigin( joints[gripper_attachment_point_idx]->WorldPose());
+                // //TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // tf::Quaternion q;
+                // q.setRPY(0, 0, msg->theta);
+                // transform.setRotation(q);
+                // br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "camera_frame"));
+                
             }
 
             void OnRosMsg(geometry_msgs::Point p) {
-                ROS_INFO("Hello World!");
-                //interface_->Grasp();//MoveEndEffectorTo(p.x, p.y, p.z);
+                ROS_INFO("Moving To Point!");
+                ((ScorpioInterface*)interface_)->MoveEndEffectorTo(p.x, p.y, p.z);
+                // while(!((ScorpioInterface*)interface_)->IsReadyToGrasp()) {
+                //     ROS_INFO("Waiting!");
+                // }
+                // ((ScorpioInterface*)interface_)->Grasp();
+                // ROS_INFO("Grasped!");
             }
 
 
@@ -115,6 +140,8 @@ namespace gazebo
             Eigen::VectorXd total_num_joint_idx_;
             Eigen::VectorXd q_;
             Eigen::VectorXd qdot_;
+
+            int gripper_attachment_point_idx = 12;
 
             ScorpioInterface* interface_;
             ScorpioSensorData* sensordata_;

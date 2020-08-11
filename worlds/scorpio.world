@@ -7,7 +7,8 @@
   <uri>model://sun</uri>
 </include>
 <include>
-  <uri>model://scorpio_with_camera</uri>
+  <uri>model://gazebo_scorpio_plugin</uri>
+  <plugin name="gazebo_scorpio_plugin" filename="libgazebo_scorpio_plugin.so"/>
 </include>
 </world>
 </sdf>
