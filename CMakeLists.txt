@@ -59,3 +59,5 @@ target_link_libraries(${PROJECT_NAME}
                     ${GAZEBO_LIBRARIES}
                     ${PNC_LIBRARIES}
                     )
+#set_target_properties(${PROJECT_NAME} PROPERTIES 
+                     #LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)

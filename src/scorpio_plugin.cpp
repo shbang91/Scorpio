@@ -20,9 +20,12 @@ namespace gazebo
                 q_ = Eigen::VectorXd::Zero(11);
                 qdot_ = Eigen::VectorXd::Zero(11);
 
+                std::cout << "hi" << std::endl;
+
                 interface_ = new ScorpioInterface();
                 sensordata_ = new ScorpioSensorData();
                 command_ = new ScorpioCommand();
+
             }
 
             ~ScorpioPlugin(){
@@ -87,7 +90,7 @@ namespace gazebo
                 static bool b_move_cmd(true);
                 if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_move_cmd) {
                     std::cout << "First Moving Command Received" << std::endl;
-                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.4, 0.2, 0.1);
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.4, 0.2, 0.1, 0.7071, 0.000316,-0.7071,0.00025); //Maintain initial orientation
                     b_move_cmd = false;
                 }
 
@@ -102,7 +105,7 @@ namespace gazebo
                 if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_move_while_hold_cmd) {
                     std::cout << "First Moving While Holding Command Received" << std::endl;
                     //Eigen::Vector3d des_rel_pos(0.2,-0.1,-0.05);
-                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(0.4, -0.2, -0.1);
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(0.4, -0.2, -0.1,0.7071,0.000316,-0.7071,0.00025);
                     b_move_while_hold_cmd = false;
                 }
 
@@ -119,6 +122,7 @@ namespace gazebo
 
                 for (int i = 0; i < active_joint_idx_.size(); ++i) {
                    joints[active_joint_idx_[i]]->SetForce(0,command_->jtrq[i]); 
+                   std::cout << command_->jtrq[i] << std::endl;
                    //joints[active_joint_idx_[i]]->SetForce(0,-qdot_[i]); 
                    //joints[active_joint_idx_[i]]->SetForce(0,0); 
                 }
