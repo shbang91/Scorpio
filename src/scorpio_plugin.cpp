@@ -102,8 +102,11 @@ namespace gazebo
             }
 
             void OnRosMsg(geometry_msgs::Point p) {
-                ROS_INFO("Hello World!");
-                //interface_->Grasp();//MoveEndEffectorTo(p.x, p.y, p.z);
+                ROS_INFO("Moving To Point!");
+                std::cout << p.x << std::endl;
+                std::cout << p.y << std::endl;
+                std::cout << p.z << std::endl;
+                ((ScorpioInterface*)interface_)->MoveEndEffectorTo(p.x, p.y, p.z);
             }
 
 
