@@ -24,7 +24,8 @@ In order to use the gazebo launch file, you have to expand the gazebo's model pa
 
 Add the following to your ~/.bashrc file:
 ```
-$ export GAZEBO_MODEL_PATH=~/${your catkin ws}/src/:$GAZEBO_MODEL_PATH
+$ export GAZEBO_MODEL_PATH=~/${catkin_ws}/src/:$GAZEBO_MODEL_PATH
+$ export GAZEBO_PLUGIN_PATH=~/${catkin_ws}/devel/lib:$GAZEBO_PLUGIN_PATH
 ```
 After compiling plugin package, Scorpio can be simulated in Gazebo via:
 ```
