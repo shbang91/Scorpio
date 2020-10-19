@@ -6,6 +6,7 @@ project(gazebo_scorpio_plugin)
 ##=============================================================================
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_MATH_DISABLE_FLOAT128")
+#list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 ##=============================================================================
@@ -25,9 +26,8 @@ find_package(gazebo REQUIRED)
 find_package(catkin REQUIRED COMPONENTS gazebo_ros roscpp rospy std_msgs)
 
 
-#link_directories(${GAZEBO_LIBRARY_DIRS})
+link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
-
 catkin_package(DEPENDS roscpp rospy gazebo_ros)
 
 #dart

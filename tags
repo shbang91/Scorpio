@@ -15,6 +15,8 @@ interface_	src/scorpio_plugin.cpp	/^            ScorpioInterface* interface_;$/;
 model	src/scorpio_plugin.cpp	/^            physics::ModelPtr model; \/\/pointer to the model$/;"	m	class:gazebo::ScorpioPlugin	file:
 q_	src/scorpio_plugin.cpp	/^            Eigen::VectorXd q_;$/;"	m	class:gazebo::ScorpioPlugin	file:
 qdot_	src/scorpio_plugin.cpp	/^            Eigen::VectorXd qdot_;$/;"	m	class:gazebo::ScorpioPlugin	file:
+rosNode_	src/scorpio_plugin.cpp	/^            std::unique_ptr<ros::NodeHandle> rosNode_;$/;"	m	class:gazebo::ScorpioPlugin	file:
+rosSub_	src/scorpio_plugin.cpp	/^            ros::Subscriber rosSub_;$/;"	m	class:gazebo::ScorpioPlugin	file:
 sensordata_	src/scorpio_plugin.cpp	/^            ScorpioSensorData* sensordata_;$/;"	m	class:gazebo::ScorpioPlugin	file:
 total_num_joint_idx_	src/scorpio_plugin.cpp	/^            Eigen::VectorXd total_num_joint_idx_;$/;"	m	class:gazebo::ScorpioPlugin	file:
 updateConnection	src/scorpio_plugin.cpp	/^            event::ConnectionPtr updateConnection; \/\/Pointer to the update event connection$/;"	m	class:gazebo::ScorpioPlugin	file:
