@@ -9,5 +9,13 @@
 <include>
   <uri>model://scorpio_with_camera</uri>
 </include>
+<include>
+  <uri>model://table</uri>
+  <pose>0.6 -0.7 0 0 0 0</pose>
+</include>
+<include>
+  <uri>model://wooden_peg</uri>
+  <pose>0.55 -0.65 1.01 0 0 0</pose>
+</include>
 </world>
 </sdf>
