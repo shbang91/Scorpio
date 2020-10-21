@@ -3,7 +3,9 @@
 #include <gazebo/common/common.hh>
 #include <boost/bind.hpp>
 #include <ros/ros.h>
+#include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Point.h"
+#include "geometry_msgs/Quaternion.h"
 
 #include <Eigen/Dense>
 
@@ -14,7 +16,7 @@ namespace gazebo
 {
     class ScorpioPlugin : public ModelPlugin
     {
-        public: 
+        public:
             ScorpioPlugin(){
                 total_num_joint_idx_ = Eigen::VectorXd::Zero(11);
                 active_joint_idx_ = Eigen::VectorXd::Zero(7);
@@ -60,7 +62,7 @@ namespace gazebo
                 //std::cout << "====================" << std::endl;
 
                 //Closed loop
-                total_num_joint_idx_ << 1,2,3,4,5,6,7,8,9,10,11; 
+                total_num_joint_idx_ << 1,2,3,4,5,6,7,8,9,10,11;
                 active_joint_idx_ << 1,2,5,6,9,10,11;
 
                 if (!ros::isInitialized())
@@ -92,25 +94,29 @@ namespace gazebo
 
                 sensordata_->q = q_;
                 sensordata_->qdot = qdot_;
-                interface_ -> getCommand(sensordata_,command_); 
+                interface_ -> getCommand(sensordata_,command_);
 
                 for (int i = 0; i < active_joint_idx_.size(); ++i) {
-                   joints[active_joint_idx_[i]]->SetForce(0,command_->jtrq[i]); 
-                   //joints[active_joint_idx_[i]]->SetForce(0,-qdot_[i]); 
-                   //joints[active_joint_idx_[i]]->SetForce(0,0); 
+                   joints[active_joint_idx_[i]]->SetForce(0,command_->jtrq[i]);
+                   //joints[active_joint_idx_[i]]->SetForce(0,-qdot_[i]);
+                   //joints[active_joint_idx_[i]]->SetForce(0,0);
                 }
             }
 
-            void OnRosMsg(geometry_msgs::Point p) {
+            void OnRosMsg(geometry_msgs::Pose pose) {
                 ROS_INFO("Moving To Point!");
+
+                geometry_msgs::Point p  = pose.position;
+                geometry_msgs::Quaternion q  = pose.orientation;
                 std::cout << p.x << std::endl;
                 std::cout << p.y << std::endl;
                 std::cout << p.z << std::endl;
-                ((ScorpioInterface*)interface_)->MoveEndEffectorTo(p.x, p.y, p.z);
+
+                ((ScorpioInterface*)interface_)->MoveEndEffectorTo(p.x, p.y, p.z, q.x, q.y, q.z, q.w);
             }
 
 
-        private: 
+        private:
             physics::ModelPtr model; //pointer to the model
             event::ConnectionPtr updateConnection; //Pointer to the update event connection
 

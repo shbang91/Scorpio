@@ -18,7 +18,7 @@ include_directories("/usr/local/include")
 link_directories("/usr/local/lib")
 
 ##TODO:Replace this with Config
-#include_directories("/home/seunghyeonbang/Repository/PnC")
+include_directories("~/code/ut/PnC")
 
 #gazebo & catkin
 find_package(gazebo REQUIRED)
@@ -60,3 +60,6 @@ target_link_libraries(${PROJECT_NAME}
                     ${GAZEBO_LIBRARIES}
                     ${PNC_LIBRARIES}
                     )
+
+add_executable(mock_node src/scorpio_mock_node.cpp)
+target_link_libraries(mock_node ${catkin_LIBRARIES})
