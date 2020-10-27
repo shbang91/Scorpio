@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <model name="scorpio_with_camera">
+    <include>
+      <plugin name="gazebo_scorpio_plugin" filename="libgazebo_scorpio_plugin.so"/>
+      <uri>model://gazebo_scorpio_plugin</uri>
+    </include>
+    <include>
+      <uri>model://realsense_camera</uri>
+      <pose>0.0 -0.6 1.7 1.57 1.57 0</pose>
+    </include>
+    <joint name="camera_joint" type="fixed">
+    	<child>gazebo_scorpio_plugin::tower</child>
+	<parent>realsense_camera::link</parent>
+</joint>
+  </model>
+</sdf>
