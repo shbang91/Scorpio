@@ -90,7 +90,7 @@ namespace gazebo
                 static bool b_move_cmd(true);
                 if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_move_cmd) {
                     std::cout << "First Moving Command Received" << std::endl;
-                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.5, 0.1, 1.3, 0.7071, 0.000316,-0.7071,0.00025); //Maintain initial orientation
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.5, 0.1, 1.3, 0.000316,-0.7071,0.00025, 0.7071); //Maintain initial orientation
                     b_move_cmd = false;
                 }
 
@@ -104,14 +104,14 @@ namespace gazebo
                 static bool b_move_while_hold_cmd(true);
                 if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_move_while_hold_cmd) {
                     std::cout << "First Moving While Holding Command Received" << std::endl;
-                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.3, -0.5, 1.5, 0.7071,0.000316,-0.7071,0.00025);
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.3, -0.5, 1.5, 0.000316,-0.7071,0.00025, 0.7071);
                     b_move_while_hold_cmd = false;
                 }
 
                 static bool b_release_cmd(true);
                 if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_release_cmd) {
                     std::cout << "First Pouring Command Received" << std::endl;
-                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.3, -0.5, 1.5, 0.7073, -0.7070, 0, 0);
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.3, -0.5, 1.5,-0.7070, 0, 0, 0.7073);
                     b_release_cmd = false;
                 }
 
