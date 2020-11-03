@@ -3,6 +3,10 @@
 #include <gazebo/common/common.hh>
 #include <boost/bind.hpp>
 #include <ros/ros.h>
+#include <sensor_msgs/JointState.h>
+#include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Point.h>
+#include <geometry_msgs/Quaternion.h>
 
 #include <Eigen/Dense>
 
@@ -69,6 +73,8 @@ namespace gazebo
 
                 this->rosNode_.reset(new ros::NodeHandle("scorpio"));
                 //this->rosSub_ = this->rosNode->subscribe("moveAbsolute", 1000, &ScorpioPlugin::OnRosMsg, this);
+                this->jointPub_ = this->rosNode_->advertise<sensor_msgs::JointState>("joint_pos", 1, this);
+                this->endeffPub_ = this->rosNode_->advertise<geometry_msgs::Pose>("endeff_pos", 1, this);
 
             }
             // Called by the world update start event
@@ -120,7 +126,21 @@ namespace gazebo
                 interface_ -> getCommand(sensordata_,command_); 
 
                 for (int i = 0; i < active_joint_idx_.size(); ++i) {
-                   joints[active_joint_idx_[i]]->SetForce(0,command_->jtrq[i]); 
+                   joint_msg_.position.push_back(sensordata_->q_act[i]);
+                }
+                endeff_msg_.position.x = (interface_->endeff_pos_)[0];
+                endeff_msg_.position.y = (interface_->endeff_pos_)[1];
+                endeff_msg_.position.z = (interface_->endeff_pos_)[2];
+                endeff_msg_.orientation.x = (interface_->endeff_ori_).x();
+                endeff_msg_.orientation.y = (interface_->endeff_ori_).y();
+                endeff_msg_.orientation.z = (interface_->endeff_ori_).z();
+                endeff_msg_.orientation.w = (interface_->endeff_ori_).w();
+
+                jointPub_.publish(joint_msg_);
+                endeffPub_.publish(endeff_msg_);
+
+                for (int i = 0; i < active_joint_idx_.size(); ++i) {
+                   joints[active_joint_idx_[i]]->SetForce(0,command_->jtrq[i]);
                    //std::cout << command_->jtrq[i] << std::endl;
                    //joints[active_joint_idx_[i]]->SetForce(0,-qdot_[i]); 
                    //joints[active_joint_idx_[i]]->SetForce(0,0); 
@@ -144,6 +164,10 @@ namespace gazebo
             //Ros stuff
             std::unique_ptr<ros::NodeHandle> rosNode_;
             ros::Subscriber rosSub_;
+            ros::Publisher jointPub_;
+            ros::Publisher endeffPub_;
+            sensor_msgs::JointState joint_msg_;
+            geometry_msgs::Pose endeff_msg_;
     };
 
     // Register this plugin with the simulator

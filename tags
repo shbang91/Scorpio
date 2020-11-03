@@ -10,8 +10,12 @@ ScorpioPlugin	src/scorpio_plugin.cpp	/^            ScorpioPlugin(){$/;"	f	class:
 ScorpioPlugin	src/scorpio_plugin.cpp	/^    class ScorpioPlugin : public ModelPlugin$/;"	c	namespace:gazebo	file:
 active_joint_idx_	src/scorpio_plugin.cpp	/^            Eigen::VectorXd active_joint_idx_;$/;"	m	class:gazebo::ScorpioPlugin	file:
 command_	src/scorpio_plugin.cpp	/^            ScorpioCommand* command_;$/;"	m	class:gazebo::ScorpioPlugin	file:
+endeffPub_	src/scorpio_plugin.cpp	/^            ros::Publisher endeffPub_;$/;"	m	class:gazebo::ScorpioPlugin	file:
+endeff_msg_	src/scorpio_plugin.cpp	/^            geometry_msgs::Pose endeff_msg_;$/;"	m	class:gazebo::ScorpioPlugin	file:
 gazebo	src/scorpio_plugin.cpp	/^namespace gazebo$/;"	n	file:
 interface_	src/scorpio_plugin.cpp	/^            ScorpioInterface* interface_;$/;"	m	class:gazebo::ScorpioPlugin	file:
+jointPub_	src/scorpio_plugin.cpp	/^            ros::Publisher jointPub_;$/;"	m	class:gazebo::ScorpioPlugin	file:
+joint_msg_	src/scorpio_plugin.cpp	/^            sensor_msgs::JointState joint_msg_;$/;"	m	class:gazebo::ScorpioPlugin	file:
 model	src/scorpio_plugin.cpp	/^            physics::ModelPtr model; \/\/pointer to the model$/;"	m	class:gazebo::ScorpioPlugin	file:
 q_	src/scorpio_plugin.cpp	/^            Eigen::VectorXd q_;$/;"	m	class:gazebo::ScorpioPlugin	file:
 qdot_	src/scorpio_plugin.cpp	/^            Eigen::VectorXd qdot_;$/;"	m	class:gazebo::ScorpioPlugin	file:
