@@ -7,7 +7,7 @@
     </include>
     <include>
       <uri>model://realsense_camera</uri>
-      <pose>0.0 -0.6 1.7 1.57 1.57 0</pose>
+      <pose>0.0 -0.6 1.4 1.57 1.57 0</pose>
     </include>
     <joint name="camera_joint" type="fixed">
     	<child>gazebo_scorpio_plugin::tower</child>

@@ -11,6 +11,11 @@
     <arg name="paused" value="True" />
 </include>
 
-<node pkg="tf" type="static_transform_publisher" name="camera_tf_publisher" args="0.60 -1.70 1.70 0 1.57 1.57 /world /camera_static_tf 100"/>
 
+<node pkg="tf" type="static_transform_publisher" name="camera_tf_publisher" 	args="0.0 -0.6 1.4 0.00 0.00  1.57 /world camera 100"/>
+<node pkg="tf" type="static_transform_publisher" name="ade_camera_tf_publisher" args="0.0  0.0 0.0 3.14 0.00 -1.57 camera ade_camera 100"/>
+<!--1.57, -1.57, 0.00 -->
+
+
+<!--<node pkg="tf" type="static_transform_publisher" name="camera_tf_publisher" args="0.0 0.6 1.4 3.14, 0.0, 3.14 /world camera 100"/>-->
 </launch>
