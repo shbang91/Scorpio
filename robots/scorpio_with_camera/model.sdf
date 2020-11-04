@@ -10,8 +10,8 @@
       <pose>0.0 -0.6 1.4 1.57 1.57 0</pose>
     </include>
     <joint name="camera_joint" type="fixed">
-    	<child>gazebo_scorpio_plugin::tower</child>
-	<parent>realsense_camera::link</parent>
-</joint>
+      <parent>world</parent>
+      <child>realsense_camera::link</child>
+    </joint>
   </model>
 </sdf>
