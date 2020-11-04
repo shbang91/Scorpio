@@ -125,7 +125,7 @@ namespace gazebo
                 interface_ -> getCommand(sensordata_,command_); 
 
                 for (int i = 0; i < active_joint_idx_.size(); ++i) {
-                   joint_msg_.position.push_back(sensordata_->q_act[i]);
+                   joint_msg_.position.push_back((sensordata_->q_act)[i]);
                 }
                 endeff_msg_.position.x = (interface_->endeff_pos_)[0];
                 endeff_msg_.position.y = (interface_->endeff_pos_)[1];
