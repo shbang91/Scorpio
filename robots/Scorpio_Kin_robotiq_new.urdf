@@ -1,0 +1,1005 @@
+<?xml version="1.0" ?>
+<robot name="Scorpio" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <gazebo>
+        <plugin name="gazebo_scorpio" filename="libgazebo_scorpio_plugin.so"></plugin>
+    </gazebo>
+
+    <link name="world">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.1" />
+      <inertia ixx="0.1" ixy="0.1" ixz="0.1" iyy="0.1" iyz="0.1" izz="0.1" />
+    </inertial>
+   </link>
+   <joint name="tower_mount" type="fixed">
+    <!--<origin rpy="0 0 -1.57" xyz="3.5 1.0 0.5"/>-->
+    <origin rpy="0 0 -1.57" xyz="0 0 0.5"/>
+    <parent link="world"/>
+    <child link="tower"/>
+   </joint>
+  <link name="tower">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.3937"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.7749"/>
+      <geometry>
+        <box size="0.200 0.200 0.025"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1"/>
+      </material>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.1"/>
+      <geometry>
+        <box size="0.0762 0.0762 1.3624"/>
+        <!--<box size="0.0762 0.0762 1.7624"/>-->
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="scorpio_mount" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0625 0.0625 0.7874"/>
+    <parent link="tower"/>
+    <child link="scorpio_mount"/>
+  </joint>
+  <link name="scorpio_mount">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <joint name="scorpio_ground" type="fixed">
+    <origin rpy="0 0 0" xyz="0.075 0.065 0.087"/>
+    <parent link="scorpio_mount"/>
+    <child link="scorpio_ground"/>
+  </joint>
+
+  <link name="scorpio_ground">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.023864 -0.016007 -0.014551"/>
+      <mass value="1.3345"/>
+      <inertia ixx="0.0015215" ixy="-0.0010805" ixz="-0.00043127" iyy="0.0022115" iyz="-0.00033943" izz="0.0024629"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+          <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_ground_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1"/>
+      </material>
+    </visual>
+  </link>
+
+ <joint name="joint1" type="continuous">
+  <!--<origin rpy="0 0 0" xyz="0 0 -0.01812"/>-->
+  <origin rpy="0 0 0" xyz="0 0 -0.01812"/>
+    <parent link="scorpio_ground"/>
+    <child link="link1"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="link1">
+    <inertial>
+      <mass value="0.97105910"/>
+      <origin rpy="0 0 0" xyz="0.04816471 0.06606926 -0.00752297"/>
+      <inertia ixx="0.00212363" ixy="0.00002469" ixz="-0.00023024" iyy="0.00183055" iyz="-0.00000418" izz="0.00162100"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_yaw1_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+  
+   <joint name="joint2" type="continuous">
+    <origin xyz="0.09 0.065 0.040025" rpy="-1.5708 0 0" />
+    <parent link="link1" />
+    <child link="link2" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="link2">
+  <inertial>
+      <mass value="0.86101268"/>
+      <origin rpy="0 0 0" xyz="0.12122970 -0.00077030 0.00730440"/>
+      <inertia ixx="0.00102826" ixy="0.00002087" ixz="-0.00011564" iyy="0.00504132" iyz="-0.00000639" izz="0.00576250"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev1__l3_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+
+ <joint name="joint3" type="continuous">
+    <origin xyz="0.22 0 0" rpy="0 0 0" />
+    <parent link="link2" />
+    <child link="link3" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="link3">
+     <inertial>
+      <mass value="0.96506968"/>
+      <origin rpy="0 0 0" xyz="0.05539938 -0.04550861 0.03305080"/>
+      <inertia ixx="0.00194689" ixy="-0.00041897" ixz="-0.00001187" iyy="0.00108580" iyz="-0.00000204" izz="0.00181433"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0.075025 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev1__l2_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+ 
+  <joint name="joint4" type="continuous">
+    <origin xyz="0 0.075025 0" rpy="0 0 0" />
+    <parent link="link3" />
+    <child link="link4" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="link4">
+     <inertial>
+      <mass value="1.09010204"/>
+      <origin rpy="0 0 0" xyz="0.11968406 0.00015676 0.00077126"/>
+      <inertia ixx="0.00163433" ixy="-0.00000800" ixz="-0.00013278" iyy="0.00610466" iyz="-0.00000123" izz="0.00721423"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="-0.22 0 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev1__l1_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+
+
+  <joint name="joint5" type="continuous">
+    <origin xyz="0.065 0.035 -0.065" rpy="1.5708 0 0" />
+    <parent link="link3" />
+    <child link="link5" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+
+  <link name="link5">
+    <inertial>
+      <mass value="0.93229200"/>
+      <origin rpy="0 0 0" xyz="0.04880378 0.06574464 -0.00765844"/>
+      <inertia ixx="0.00175861" ixy="0.00003237" ixz="-0.00022338" iyy="0.00151576" iyz="-0.00000289" izz="0.00153999"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_yaw2_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+ 
+  <joint name="joint6" type="continuous">
+    <origin xyz="0.09 0.065 0.040025" rpy="-1.5708 0 0" />
+    <parent link="link5" />
+    <child link="link6" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="link6">
+  <inertial>
+      <mass value="0.86101268"/>
+      <origin rpy="0 0 0" xyz="0.12122970 -0.00077030 0.00730440"/>
+      <inertia ixx="0.00102826" ixy="0.00002087" ixz="-0.00011564" iyy="0.00504132" iyz="-0.00000639" izz="0.00576250"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev2__l3_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+
+ <joint name="joint7" type="continuous">
+    <origin xyz="0.22 0 0" rpy="0 0 0" />
+    <parent link="link6" />
+    <child link="link7" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="link7">
+    <inertial>
+      <mass value="0.79358667"/>
+      <origin rpy="0 0 0" xyz="0.06851225 0.00134854 0.02888846"/>
+      <inertia ixx="0.00084161" ixy="-0.00004494" ixz="-0.00003202" iyy="0.00100312" iyz="0.00000025" izz="0.00102847"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0.075025 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev2__l2_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="joint8" type="continuous">
+    <origin xyz="0 0.075025 0" rpy="0 0 0" />
+    <parent link="link7" />
+    <child link="link8" />
+    <axis xyz="0 0 1" />
+  </joint>
+ 
+  <link name="link8"> 
+    <inertial>
+      <mass value="1.09010204"/>
+      <origin rpy="0 0 0" xyz="0.11968406 0.00015676 0.00077126"/>
+      <inertia ixx="0.00163433" ixy="-0.00000800" ixz="-0.00013278" iyy="0.00610466" iyz="-0.00000123" izz="0.00721423"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="-0.22 0 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev2__l1_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="link7_end">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <!--<mass value="0.00000001" />-->
+      <!--<inertia ixx="1.e-9" ixy="0.0" ixz="0.0" iyy="1.e-9" iyz="0.0" izz="1.e-9" />-->
+      <mass value="0.00001" />
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
+    </inertial>
+  </link>
+
+  <joint name="link7_end" type="fixed">
+    <origin xyz="0 0.075025 0" rpy="1.5708 0 0" />
+    <parent link="link7" />
+    <child link="link7_end" />
+  </joint>
+
+  <joint name="joint9" type="continuous">
+    <origin rpy="0 -0.7854 0" xyz="0.10096 0 0.048529"/>
+    <parent link="link7_end" />
+    <child link="link9" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="link9">
+   <inertial>
+      <mass value="0.61742656"/>
+      <origin rpy="0 0 0" xyz="0.02618812 -0.06026687 -0.05029391"/>
+      <inertia ixx="0.00049346" ixy="-0.00005954" ixz="-0.00015627" iyy="0.00067920" iyz="0.00009425" izz="0.00043236"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_wrist_skewed_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="joint10" type="continuous">
+     <!--<joint name="wrist_pitch" type="fixed"> -->
+    <origin rpy="0 0.7854 0" xyz="0.034604 -0.04372 -0.060104"/>
+    <parent link="link9"/>
+    <child link="scorpio_wrist_pitch"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="200" lower="-2.2000000" upper="1.0000000" velocity="0"/>
+  </joint>
+
+  <link name="scorpio_wrist_pitch">
+    <inertial>
+      <mass value="0.56501641"/>
+      <origin rpy="0 0 0" xyz="-0.00022504 0.05030401 0.00234299"/>
+      <inertia ixx="0.00042006" ixy="-0.00000558" ixz="0.00000093" iyy="0.00021226" iyz="-0.00001417" izz="0.00052578"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_wrist_pitch_hull.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+  <!--===========================WRIST ROLL PRE FT===========================-->
+   <!--<joint name="joint11" type="continuous"> -->
+  <joint name="joint11" type="revolute">
+     <!--<joint name="wrist_roll" type="fixed"> -->
+    <origin rpy="0 0 1.5708" xyz="0 0.04372 -0.01728"/>
+    <parent link="scorpio_wrist_pitch"/>
+    <child link="gripper_attachment_point"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="200" lower="-3.1416" upper="3.1416" velocity="0"/>
+  </joint>
+  <link name="gripper_attachment_point">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.000 0.000 0.000"/>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <!--===========================FT SENSOR TODO: MASS===========================-->
+  <joint name="wrist_ft" type="fixed">
+    <origin rpy="0 0 0" xyz="0.000 0.000 -0.028"/>
+    <parent link="gripper_attachment_point"/>
+    <child link="wrist_ft"/>
+   </joint>
+
+  <link name="wrist_ft">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.000 0.000 0.000"/>
+      <mass value="0.050"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.014"/>
+      <geometry>
+        <cylinder length="0.028" radius="0.020"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="graiper_base" type="fixed">
+    <origin rpy="3.1415 0 0" xyz="0.000 0.000 0.000"/>
+    <parent link="wrist_ft"/>
+    <child link="robotiq_85_base_link"/>
+   </joint>
+
+  <link name="robotiq_85_base_link">
+    <inertial>
+      <origin
+        xyz="0.00021987 -2.3546E-10 0.030163"
+        rpy="0 0 0" />
+      <mass
+        value="0.30915" />
+      <inertia
+        ixx="0.00028972"
+        ixy="-5.7879E-10"
+        ixz="-1.8543E-06"
+        iyy="0.00030737"
+        iyz="1.682E-12"
+        izz="0.00019914" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/robotiq_85_base_link_fine.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/robotiq_85_base_link_coarse.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_outer_knuckle">
+    <inertial>
+      <origin
+        xyz="0.0178331863169983 3.68915177224286E-11 0.0021442477325704"
+        rpy="0 0 0" />
+      <mass
+        value="0.00684838849434396" />
+      <inertia
+        ixx="2.66832029033166E-07"
+        ixy="1.66142314639824E-15"
+        ixz="1.45945633322873E-07"
+        iyy="1.3889233257419E-06"
+        iyz="2.82951161241588E-15"
+        izz="1.26603336914415E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_fine.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_coarse.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="finger_joint"
+    type="fixed">
+    <origin
+      xyz="0.0306011444260539 0 0.0627920162695395"
+      rpy="0 0 0" />
+    <parent
+      link="robotiq_85_base_link" />
+    <child
+      link="left_outer_knuckle" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0.725"
+      velocity="2.0"
+      effort="1000" />
+  </joint>
+  <link
+    name="left_outer_finger">
+    <inertial>
+      <origin
+        xyz="0.00131451599174296 2.88942057994543E-15 0.0215404163180413"
+        rpy="0 0 0" />
+      <mass
+        value="0.0273093985570947" />
+      <inertia
+        ixx="8.51629628283022E-06"
+        ixy="2.58174336207405E-19"
+        ixz="3.83829504344079E-07"
+        iyy="6.9133328065108E-06"
+        iyz="-7.58589926143789E-19"
+        izz="2.25006832221981E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_fine.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_coarse.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_outer_finger_joint"
+    type="fixed">
+    <origin
+      xyz="0.0316910442266543 0 -0.00193396375724605"
+      rpy="0 0 0" />
+    <parent
+      link="left_outer_knuckle" />
+    <child
+      link="left_outer_finger" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="left_inner_knuckle">
+    <inertial>
+      <origin
+        xyz="0.017097546626628 -3.93808524389535E-10 0.0224918438201868"
+        rpy="0 0 0" />
+      <mass
+        value="0.0110930853895903" />
+      <inertia
+        ixx="4.23392770691541E-06"
+        ixy="5.748978936968E-15"
+        ixz="1.78855677119788E-06"
+        iyy="3.96548790524392E-06"
+        iyz="1.05464666369669E-14"
+        izz="3.24068002883007E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_fine.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_coarse.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_inner_knuckle_joint"
+    type="fixed">
+    <origin
+      xyz="0.0127000000001501 0 0.0693074999999639"
+      rpy="0 0 0" />
+    <parent
+      link="robotiq_85_base_link" />
+    <child
+      link="left_inner_knuckle" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0.8757"
+      velocity="2.0"
+      effort="1000" />
+    <mimic 
+      joint="finger_joint"
+      multiplier="1"
+      offset="0" />
+  </joint>
+  <link
+    name="left_inner_finger">
+    <inertial>
+      <origin
+        xyz="0.0060275613594574 -6.29183141465421E-15 0.00669925693133241"
+        rpy="0 0 0" />
+      <mass
+        value="0.00724255346165745" />
+      <inertia
+        ixx="1.47824274053603E-06"
+        ixy="-3.94884463570303E-19"
+        ixz="-3.45268847648622E-07"
+        iyy="1.70064480838395E-06"
+        iyz="3.5059838910097E-19"
+        izz="4.77151336838364E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_fine.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_coarse.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_inner_finger_joint"
+    type="fixed">
+    <origin
+      xyz="0.034585310861294 0 0.0454970193817975"
+      rpy="0 0 0" />
+    <parent
+      link="left_inner_knuckle" />
+    <child
+      link="left_inner_finger" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0.8757"
+      velocity="2.0"
+      effort="1000" />
+    <mimic 
+      joint="finger_joint"
+      multiplier="-1"
+      offset="0" />
+  </joint>
+  <link
+    name="right_inner_knuckle">
+    <inertial>
+      <origin
+        xyz="0.0168606186773776 3.93808471820465E-10 0.0226699950793434"
+        rpy="0 0 0" />
+      <mass
+        value="0.0110930853895903" />
+      <inertia
+        ixx="4.27134775939882E-06"
+        ixy="-8.53568456728898E-15"
+        ixz="1.77774229944246E-06"
+        iyy="3.96548790524392E-06"
+        iyz="-8.45108024914164E-15"
+        izz="3.20325997634666E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_fine.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_coarse.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_inner_knuckle_joint"
+    type="fixed">
+    <origin
+      xyz="-0.0126999999998499 0 0.0693075000000361"
+      rpy="0 0 3.14159265358979" />
+    <parent
+      link="robotiq_85_base_link" />
+    <child
+      link="right_inner_knuckle" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0.8757"
+      velocity="2.0"
+      effort="1000" />
+    <mimic 
+      joint="finger_joint"
+      multiplier="-1"
+      offset="0" />
+  </joint>
+  <link
+    name="right_inner_finger">
+    <inertial>
+      <origin
+        xyz="0.00602756228812038 -6.47284509480176E-15 0.00669925609578108"
+        rpy="0 0 0" />
+      <mass
+        value="0.00724255346165744" />
+      <inertia
+        ixx="1.47824283625957E-06"
+        ixy="-3.95952064019123E-19"
+        ixz="-3.45268708875543E-07"
+        iyy="1.70064480838394E-06"
+        iyz="3.55286507960029E-19"
+        izz="4.77151241114822E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_fine.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_coarse.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_inner_finger_joint"
+    type="fixed">
+    <origin
+      xyz="0.0341060475457406 0 0.0458573878541688"
+      rpy="0 0 0" />
+    <parent
+      link="right_inner_knuckle" />
+    <child
+      link="right_inner_finger" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0.8757"
+      velocity="2.0"
+      effort="1000" />
+    <mimic 
+      joint="finger_joint"
+      multiplier="1"
+      offset="0" />
+  </joint>
+  <link
+    name="right_outer_knuckle">
+    <inertial>
+      <origin
+        xyz="0.0178097074051638 3.60493211424024E-11 0.00233123458346721"
+        rpy="0 0 0" />
+      <mass
+        value="0.00684838849401352" />
+      <inertia
+        ixx="2.70004361573169E-07"
+        ixy="1.59579467624491E-15"
+        ixz="1.56396493788199E-07"
+        iyy="1.38892332558312E-06"
+        iyz="2.82357800318817E-15"
+        izz="1.26286103637978E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_fine.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_coarse.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_outer_knuckle_joint"
+    type="fixed">
+    <origin
+      xyz="-0.0306011444258893 0 0.0627920162695395"
+      rpy="0 0 3.14159265358979" />
+    <parent
+      link="robotiq_85_base_link" />
+    <child
+      link="right_outer_knuckle" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0.8757"
+      velocity="2.0"
+      effort="1000" />
+    <mimic 
+      joint="finger_joint"
+      multiplier="-1"
+      offset="0" />
+  </joint>
+  <link name="right_outer_finger">
+    <inertial>
+      <origin
+        xyz="0.00108844269639009 -2.611488350845E-15 0.0215530225245502"
+        rpy="0 0 0" />
+      <mass
+        value="0.0273093985570947" />
+      <inertia
+        ixx="8.52366028592721E-06"
+        ixy="3.41683380899422E-19"
+        ixz="3.18003675694284E-07"
+        iyy="6.91333280651081E-06"
+        iyz="7.37726682706417E-19"
+        izz="2.24270431912283E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_fine.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_coarse.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_outer_finger_joint"
+    type="fixed">
+    <origin
+      xyz="0.0317095909367246 0 -0.0016013564954687"
+      rpy="0 0 0" />
+    <parent
+      link="right_outer_knuckle" />
+    <child
+      link="right_outer_finger" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <!--===========================END EFFECTOR===========================-->
+  <joint name="end_effector" type="fixed">
+    <origin rpy="0 1.570796326 0" xyz="0.000 0.000 -0.0805"/>
+    <parent link="robotiq_85_base_link"/>
+    <child link="end_effector"/>
+  </joint>
+  <link name="end_effector">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.000 0.000 0.000"/>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <link name="link4_end">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.00001" />
+      <inertia ixx="0.00001" ixy="0.00001" ixz="0.00001" iyy="0.00001" iyz="0.00001" izz="0.00001" />
+    </inertial>
+  </link>
+  <joint name="link4_end" type="fixed">
+    <origin xyz="-0.22 0 0" rpy="0 0 0" />
+    <parent link="link4" />
+    <child link="link4_end" />
+</joint>
+
+  <link name="link8_end">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.00001" />
+      <inertia ixx="0.00001" ixy="0.00001" ixz="0.00001" iyy="0.00001" iyz="0.00001" izz="0.00001" />
+    </inertial>
+  </link>
+  <joint name="link8_end" type="fixed">
+    <origin xyz="-0.22 0 0" rpy="0 0 0" />
+    <parent link="link8" />
+    <child link="link8_end" />
+  </joint>
+
+  <gazebo>
+      <joint name="constraint1" type="revolute">
+          <parent>link4</parent>
+          <child>link1</child>
+          <!--<pose> 0.09 0.065 -0.040025 -1.57 0 0 </pose>-->
+          <!--<pose> 0.089949 0.065072 -0.040025 -1.57 0 0 </pose>-->
+          <!--<pose> 0.09 0.1225 -0.034975 -1.57 0 0 </pose>-->
+          <pose> 0.09 0.065 -0.035 -1.57 0 0 </pose>
+          <axis>
+              <xyz>1 0 0</xyz>
+              <limit>
+                  <lower>-1</lower>
+                  <upper>1</upper>
+              </limit>
+              <dynamics>
+                  <spring_reference>0</spring_reference>
+                  <spring_stiffness>0</spring_stiffness>
+              </dynamics>
+              <use_parent_model_frame>1</use_parent_model_frame>
+
+          </axis>
+          <!--<physics>-->
+              <!--<ode>-->
+                  <!--<implicit_spring_damper>1</implicit_spring_damper>-->
+                  <!--<cfm_damping>1</cfm_damping>-->
+                  <!--<limit>-->
+                      <!--<cfm>0</cfm>-->
+                      <!--<erp>0.2</erp>-->
+                  <!--</limit>-->
+              <!--</ode>-->
+          <!--</physics>-->
+      </joint>
+  </gazebo>
+
+  <gazebo>
+        <joint name="constraint2" type="revolute">
+          <parent>link8</parent>
+          <child>link5</child>
+          <!--<pose> 0.09 0.065 -0.040025 -1.57 0 0 </pose>-->
+          <!--<pose> 0.089949 0.065072 -0.040025 -1.57 0 0 </pose>-->
+          <!--<pose> 0.09 0.1225 -0.034975 -1.57 0 0 </pose>-->
+          <pose> 0.09 0.065 -0.035 -1.57 0 0 </pose>
+          <axis>
+              <xyz>1 0 0</xyz>
+              <limit>
+                  <lower>-1</lower>
+                  <upper>1</upper>
+              </limit>
+              <dynamics>
+                  <spring_reference>0</spring_reference>
+                  <spring_stiffness>0</spring_stiffness>
+              </dynamics>
+              <use_parent_model_frame>1</use_parent_model_frame>
+
+          </axis>
+          <!--<physics>-->
+              <!--<ode>-->
+                  <!--<implicit_spring_damper>1</implicit_spring_damper>-->
+                  <!--<cfm_damping>1</cfm_damping>-->
+                  <!--<limit>-->
+                      <!--<cfm>0</cfm>-->
+                      <!--<erp>0.2</erp>-->
+                  <!--</limit>-->
+              <!--</ode>-->
+          <!--</physics>-->
+      </joint>
+  </gazebo>
+</robot>

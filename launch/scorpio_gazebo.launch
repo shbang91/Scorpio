@@ -1,0 +1,17 @@
+<launch>
+<arg name="robot" default="scorpio" />
+
+<include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!--<arg name="world_name" value="$(find gazebo_scorpio_plugin)/world/*.world"/>-->
+    <arg name="paused" value="True" />
+</include>
+
+<!-- load robot -->
+<param name="robot_description"
+    textfile="$(find gazebo_scorpio_plugin)/robots/Scorpio_Kin_robotiq_new.urdf" />
+<!--<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />  -->
+<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -model scorpio -param robot_description
+        -J joint1 -2
+        -J joint5 -1.57"/>
+</launch>

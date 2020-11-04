@@ -3,9 +3,10 @@
 #include <gazebo/common/common.hh>
 #include <boost/bind.hpp>
 #include <ros/ros.h>
-#include "geometry_msgs/Pose.h"
-#include "geometry_msgs/Point.h"
-#include "geometry_msgs/Quaternion.h"
+#include <sensor_msgs/JointState.h>
+#include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Point.h>
+#include <geometry_msgs/Quaternion.h>
 
 #include <Eigen/Dense>
 
@@ -16,7 +17,7 @@ namespace gazebo
 {
     class ScorpioPlugin : public ModelPlugin
     {
-        public:
+        public: 
             ScorpioPlugin(){
                 total_num_joint_idx_ = Eigen::VectorXd::Zero(11);
                 active_joint_idx_ = Eigen::VectorXd::Zero(7);
@@ -62,26 +63,21 @@ namespace gazebo
                 //std::cout << "====================" << std::endl;
 
                 //Closed loop
-                total_num_joint_idx_ << 1,2,3,4,5,6,7,8,9,10,11;
+                total_num_joint_idx_ << 1,2,3,4,5,6,7,8,9,10,11; 
                 active_joint_idx_ << 1,2,5,6,9,10,11;
-
-                if (!ros::isInitialized())
-                {
-                    ROS_FATAL_STREAM("A ROS node for Gazebo has not been initialized, unable to load plugin. "
-                                             << "Load the Gazebo system plugin 'libgazebo_ros_api_plugin.so' in the gazebo_ros package)");
-                    return;
+                
+                if(!ros::isInitialized()){
+                ROS_FATAL_STREAM("A ROS node for GAZEBO has not been initialized, unable to load plugin");
                 }
 
-                this->rosNode.reset(new ros::NodeHandle("scorpio"));
-                this->rosSub = this->rosNode->subscribe("moveAbsolute", 1000, &ScorpioPlugin::OnRosMsg, this);
+                this->rosNode_.reset(new ros::NodeHandle("scorpio"));
+                //this->rosSub_ = this->rosNode->subscribe("moveAbsolute", 1000, &ScorpioPlugin::OnRosMsg, this);
+                this->jointPub_ = this->rosNode_->advertise<sensor_msgs::JointState>("joint_pos", 1, this);
+                this->endeffPub_ = this->rosNode_->advertise<geometry_msgs::Pose>("endeff_pos", 1, this);
 
             }
             // Called by the world update start event
             void OnUpdate() {
-
-                //double seconds_per_step = this ->model->Getworld()->GetPhysicsEngine()->GetUpdatePeriod();
-                //double alternate_time = this->model->Getworld()->GetSimTime().Double();
-                //iters = this->model->GetWorld()->GetIterations();
 
                 gazebo::physics::Joint_V joints = this->model->GetJoints();
 
@@ -92,31 +88,66 @@ namespace gazebo
                 //myUtils::pretty_print(q_, std::cout, "joint pos");
                 //myUtils::pretty_print(qdot_, std::cout, "joint vel");
 
+                // ================================================
+                // Scorpio grasp APIs Examples
+                // ================================================
+
+                static bool b_move_cmd(true);
+                if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_move_cmd) {
+                    std::cout << "First Moving Command Received" << std::endl;
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.5, 0.1, 1.3, 0.000316,-0.7071,0.00025, 0.7071); //Maintain initial orientation
+                    b_move_cmd = false;
+                }
+
+                static bool b_grasp_cmd(true);
+                if (((ScorpioInterface*)interface_)->IsReadyToGrasp() && b_grasp_cmd) {
+                    std::cout << "First Grasping Command Received" << std::endl;
+                    ((ScorpioInterface*)interface_)->Grasp();
+                    b_grasp_cmd = false;
+                }
+
+                static bool b_move_while_hold_cmd(true);
+                if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_move_while_hold_cmd) {
+                    std::cout << "First Moving While Holding Command Received" << std::endl;
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.3, -0.5, 1.5, 0.000316,-0.7071,0.00025, 0.7071);
+                    b_move_while_hold_cmd = false;
+                }
+
+                static bool b_release_cmd(true);
+                if (((ScorpioInterface*)interface_)->IsReadyToMove() && b_release_cmd) {
+                    std::cout << "First Pouring Command Received" << std::endl;
+                    ((ScorpioInterface*)interface_)->MoveEndEffectorTo(-0.3, -0.5, 1.5,-0.7070, 0, 0, 0.7073);
+                    b_release_cmd = false;
+                }
+
                 sensordata_->q = q_;
                 sensordata_->qdot = qdot_;
-                interface_ -> getCommand(sensordata_,command_);
+                interface_ -> getCommand(sensordata_,command_); 
+
+                for (int i = 0; i < active_joint_idx_.size(); ++i) {
+                   joint_msg_.position.push_back(sensordata_->q_act[i]);
+                }
+                endeff_msg_.position.x = (interface_->endeff_pos_)[0];
+                endeff_msg_.position.y = (interface_->endeff_pos_)[1];
+                endeff_msg_.position.z = (interface_->endeff_pos_)[2];
+                endeff_msg_.orientation.x = (interface_->endeff_ori_).x();
+                endeff_msg_.orientation.y = (interface_->endeff_ori_).y();
+                endeff_msg_.orientation.z = (interface_->endeff_ori_).z();
+                endeff_msg_.orientation.w = (interface_->endeff_ori_).w();
+
+                jointPub_.publish(joint_msg_);
+                endeffPub_.publish(endeff_msg_);
 
                 for (int i = 0; i < active_joint_idx_.size(); ++i) {
                    joints[active_joint_idx_[i]]->SetForce(0,command_->jtrq[i]);
-                   //joints[active_joint_idx_[i]]->SetForce(0,-qdot_[i]);
-                   //joints[active_joint_idx_[i]]->SetForce(0,0);
+                   //std::cout << command_->jtrq[i] << std::endl;
+                   //joints[active_joint_idx_[i]]->SetForce(0,-qdot_[i]); 
+                   //joints[active_joint_idx_[i]]->SetForce(0,0); 
                 }
             }
 
-            void OnRosMsg(geometry_msgs::Pose pose) {
-                ROS_INFO("Moving To Point!");
 
-                geometry_msgs::Point p  = pose.position;
-                geometry_msgs::Quaternion q  = pose.orientation;
-                std::cout << p.x << std::endl;
-                std::cout << p.y << std::endl;
-                std::cout << p.z << std::endl;
-
-                ((ScorpioInterface*)interface_)->MoveEndEffectorTo(p.x, p.y, p.z, q.x, q.y, q.z, q.w);
-            }
-
-
-        private:
+        private: 
             physics::ModelPtr model; //pointer to the model
             event::ConnectionPtr updateConnection; //Pointer to the update event connection
 
@@ -128,9 +159,14 @@ namespace gazebo
             ScorpioInterface* interface_;
             ScorpioSensorData* sensordata_;
             ScorpioCommand* command_;
-            //Ros Stuff
-            std::unique_ptr<ros::NodeHandle> rosNode;
-            ros::Subscriber rosSub;
+
+            //Ros stuff
+            std::unique_ptr<ros::NodeHandle> rosNode_;
+            ros::Subscriber rosSub_;
+            ros::Publisher jointPub_;
+            ros::Publisher endeffPub_;
+            sensor_msgs::JointState joint_msg_;
+            geometry_msgs::Pose endeff_msg_;
     };
 
     // Register this plugin with the simulator

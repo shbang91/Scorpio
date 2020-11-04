@@ -10,7 +10,7 @@ $ cd 'your catkin workspace src' && git clone --recurse https://github.com/shban
 
 ## Install Required Dependancies
 Make sure [PnC Package](http://github.com/shbang91/PnC.git) is installed.
-Clone the repo and checkout to Gazebo_PnC_Integration branch
+Clone the repo and checkout to Gazebo_Scorpio branch
 ```
 $ mkdir build && cd build && cmake..
 $ make -j
@@ -24,7 +24,8 @@ In order to use the gazebo launch file, you have to expand the gazebo's model pa
 
 Add the following to your ~/.bashrc file:
 ```
-$ export GAZEBO_MODEL_PATH=~/${your catkin ws}/src/:$GAZEBO_MODEL_PATH
+$ export GAZEBO_MODEL_PATH=~/${catkin_ws}/src/:$GAZEBO_MODEL_PATH
+$ export GAZEBO_PLUGIN_PATH=~/${catkin_ws}/devel/lib:$GAZEBO_PLUGIN_PATH
 ```
 After compiling plugin package, Scorpio can be simulated in Gazebo via:
 ```
