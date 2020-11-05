@@ -13,7 +13,8 @@ void OnRosMsg(geometry_msgs::Pose p) {
 int main(int argc, char **argv) {
     ros::init(argc, argv, "scorpio_control_node");
     ros::NodeHandle n("scorpio");
-    ros::Subscriber point_sub = n.subscribe< geometry_msgs::Pose>("moveAbsolute", 1000, OnRosMsg);
+    ros::Subscriber point_sub = n.subscribe< geometry_msgs::Pose>("MoveEndEffectorTo", 1000, OnRosMsg);
+    // ros::Subscriber point_sub = n.subscribe<>("Grasp", 1000);
     ros::Publisher endeff_pub = n.advertise< geometry_msgs::Pose>("endeff_pos", 1000);
     ros::Publisher joint_pub = n.advertise< sensor_msgs::JointState>("joint_pos", 1000);
     ros::Rate loop_rate(10);
