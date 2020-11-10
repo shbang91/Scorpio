@@ -78,7 +78,7 @@ namespace gazebo {
 
             this->rosNode_.reset(new ros::NodeHandle("scorpio"));
             this->rosSub_ = this->rosNode_->subscribe("MoveEndEffectorTo", 1000, &ScorpioPlugin::MoveEndEffectorTo,
-                                                     this);
+                                                      this);
             this->jointPub_ = this->rosNode_->advertise<sensor_msgs::JointState>("joint_pos", 10, this);
             this->endeffPub_ = this->rosNode_->advertise<geometry_msgs::Pose>("endeff_pos", 10, this);
 
