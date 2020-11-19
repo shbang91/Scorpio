@@ -146,6 +146,8 @@ namespace gazebo {
             jointPub_.publish(joint_msg_);
             endeffPub_.publish(endeff_msg_);
 
+            //if (client.call()) {
+            //}
             for (int i = 0; i < active_joint_idx_.size(); ++i) {
                 joints[active_joint_idx_[i]]->SetForce(0, command_->jtrq[i]);
                 //std::cout << command_->jtrq[i] << std::endl;
