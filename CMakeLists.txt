@@ -24,13 +24,19 @@ include_directories("~/code/ut/PnC")
 #gazebo & catkin
 find_package(gazebo REQUIRED)
 
-find_package(catkin REQUIRED COMPONENTS gazebo_ros roscpp rospy std_msgs)
+find_package(catkin REQUIRED COMPONENTS gazebo_ros roscpp rospy std_msgs geometry_msgs message_generation)
 
+add_service_files(
+  FILES
+  MoveEndEffectorToSrv.srv
+)
+
+generate_messages(DEPENDENCIES std_msgs geometry_msgs)
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
 
-catkin_package(DEPENDS roscpp rospy gazebo_ros)
+catkin_package(DEPENDS roscpp rospy gazebo_ros message_runtime std_msgs geometry_msgs)
 
 #dart
 #find_package(DART 6.9 REQUIRED COMPONENTS utils-urdf gui-osg CONFIG)

@@ -13,6 +13,8 @@
 #include <PnC/ScorpioPnC/ScorpioInterface.hpp>
 #include <Utils/IO/IOUtilities.hpp>
 
+#include <gazebo_scorpio_plugin/MoveEndEffectorToSrv.h>
+
 namespace gazebo {
     class ScorpioPlugin : public ModelPlugin {
     public:
@@ -40,6 +42,33 @@ namespace gazebo {
                                                                      pose.orientation.x, pose.orientation.y,
                                                                      pose.orientation.z, pose.orientation.w);
             }
+        }
+
+        bool MoveEndEffectorToSrv(gazebo_scorpio_plugin::MoveEndEffectorToSrv::Request &req,
+                                  gazebo_scorpio_plugin::MoveEndEffectorToSrv::Response &res) {
+            if (((ScorpioInterface *) interface_)->IsReadyToMove()) {
+                std::cout << "First Moving Command Received" << std::endl;
+                // res.time = ((ScorpioInterface *) interface_)->GetTimeParam()
+                ((ScorpioInterface *) interface_)->MoveEndEffectorTo(req.ee_pose.position.x, req.ee_pose.position.y, req.ee_pose.position.z,
+                                                                     req.ee_pose.orientation.x, req.ee_pose.orientation.y,
+                                                                     req.ee_pose.orientation.z, req.ee_pose.orientation.w);
+                res.success = true;
+                // TODO: either implement on ScorpioInterface/PnC side or find where param for action time is and modify here appropriately
+                // sleep(10);
+                // Alternate solution, wait for gripper to be ready to move again to return
+                while (!((ScorpioInterface *) interface_)->IsReadyToMove())
+                    sleep(1);
+            } else {
+                res.success = false;
+            }
+            res.ee_pose.position.x = (interface_->endeff_pos_)[0];
+            res.ee_pose.position.y = (interface_->endeff_pos_)[1];
+            res.ee_pose.position.z = (interface_->endeff_pos_)[2];
+            res.ee_pose.orientation.x = (interface_->endeff_ori_).x();
+            res.ee_pose.orientation.y = (interface_->endeff_ori_).y();
+            res.ee_pose.orientation.z = (interface_->endeff_ori_).z();
+            res.ee_pose.orientation.w = (interface_->endeff_ori_).w();
+            return true;
         }
 
         void Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
@@ -81,7 +110,7 @@ namespace gazebo {
                                                       this);
             this->jointPub_ = this->rosNode_->advertise<sensor_msgs::JointState>("joint_pos", 10, this);
             this->endeffPub_ = this->rosNode_->advertise<geometry_msgs::Pose>("endeff_pos", 10, this);
-
+            this->endeffServer_ = this->rosNode_->advertiseService("MoveEndEffectorToSrv", &ScorpioPlugin::MoveEndEffectorToSrv, this);
         }
 
         // Called by the world update start event
@@ -146,6 +175,9 @@ namespace gazebo {
             jointPub_.publish(joint_msg_);
             endeffPub_.publish(endeff_msg_);
 
+            // Clear joint_msg_ or position array will continuously build up
+            joint_msg_.position.clear();
+
             for (int i = 0; i < active_joint_idx_.size(); ++i) {
                 joints[active_joint_idx_[i]]->SetForce(0, command_->jtrq[i]);
                 //std::cout << command_->jtrq[i] << std::endl;
@@ -173,6 +205,7 @@ namespace gazebo {
         ros::Subscriber rosSub_;
         ros::Publisher jointPub_;
         ros::Publisher endeffPub_;
+        ros::ServiceServer endeffServer_;
         sensor_msgs::JointState joint_msg_;
         geometry_msgs::Pose endeff_msg_;
     };
