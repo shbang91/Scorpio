@@ -19,19 +19,21 @@ include_directories("/usr/local/include")
 link_directories("/usr/local/lib")
 
 ##TODO:Replace this with Config
-include_directories("~/code/ut/PnC")
+include_directories("~/catkin_ws/src/PnC")
+#include_directories("~/code/ut/PnC")
 
 #gazebo & catkin
 find_package(gazebo REQUIRED)
 
-find_package(catkin REQUIRED COMPONENTS gazebo_ros roscpp rospy std_msgs geometry_msgs message_generation)
+find_package(catkin REQUIRED COMPONENTS gazebo_ros roscpp rospy std_msgs geometry_msgs control_msgs message_generation)
 
 add_service_files(
   FILES
   MoveEndEffectorToSrv.srv
+  GripperCommandSrv.srv
 )
 
-generate_messages(DEPENDENCIES std_msgs geometry_msgs)
+generate_messages(DEPENDENCIES std_msgs geometry_msgs control_msgs)
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})

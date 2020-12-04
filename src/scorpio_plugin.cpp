@@ -7,6 +7,8 @@
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Quaternion.h>
+#include "control_msgs/GripperCommandAction.h"
+#include "control_msgs/GripperCommandGoal.h"
 
 #include <Eigen/Dense>
 
@@ -14,6 +16,8 @@
 #include <Utils/IO/IOUtilities.hpp>
 
 #include <gazebo_scorpio_plugin/MoveEndEffectorToSrv.h>
+#include <gazebo_scorpio_plugin/GripperCommandSrv.h>
+#include <actionlib/client/simple_action_client.h>
 
 namespace gazebo {
     class ScorpioPlugin : public ModelPlugin {
@@ -71,6 +75,21 @@ namespace gazebo {
             return true;
         }
 
+        bool GripperCommandSrv(gazebo_scorpio_plugin::GripperCommandSrv::Request &req,
+                                  gazebo_scorpio_plugin::GripperCommandSrv::Response &res) {
+            actionlib::SimpleActionClient<control_msgs::GripperCommandAction> gripperClient_("/scorpio_with_camera/robotiq_2f_85_gripper_controller/gripper_cmd", true);
+            control_msgs::GripperCommandGoal goal;
+            goal.command.position = req.command.position;
+            // this->gripperClient_.sendGoal(goal);
+            // bool finished_before_timeout = this->gripperClient_.waitForResult(ros::Duration(10.0));
+            gripperClient_.sendGoal(goal);
+            bool finished_before_timeout = gripperClient_.waitForResult(ros::Duration(10.0));
+
+            res.success = finished_before_timeout;
+            // todo: return actual resulting gripper width if desired
+            return true;
+        }
+
         void Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
             this->model = _parent; //Store the pointer to the model
 
@@ -111,6 +130,7 @@ namespace gazebo {
             this->jointPub_ = this->rosNode_->advertise<sensor_msgs::JointState>("joint_pos", 10, this);
             this->endeffPub_ = this->rosNode_->advertise<geometry_msgs::Pose>("endeff_pos", 10, this);
             this->endeffServer_ = this->rosNode_->advertiseService("MoveEndEffectorToSrv", &ScorpioPlugin::MoveEndEffectorToSrv, this);
+            this->gripperServer_ = this->rosNode_->advertiseService("GripperCommandSrv", &ScorpioPlugin::GripperCommandSrv, this);
         }
 
         // Called by the world update start event
@@ -206,6 +226,7 @@ namespace gazebo {
         ros::Publisher jointPub_;
         ros::Publisher endeffPub_;
         ros::ServiceServer endeffServer_;
+        ros::ServiceServer gripperServer_;
         sensor_msgs::JointState joint_msg_;
         geometry_msgs::Pose endeff_msg_;
     };
