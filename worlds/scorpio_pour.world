@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<sdf version='1.6'>
+  <world name='default'>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://table</uri>
+      <!-- <pose> 0.55 0 -0.85 0 0 1.5708</pose> -->
+      <pose>0.11 -0.8 0.0 0 0 0</pose>
+      <!-- <pose>0.11 -0.9 0.0 0 0 0</pose> -->
+      <!-- <pose> 0.95 0 -1.01 0 0 1.5708</pose> -->
+      <static>true</static>
+    </include>
+    <include>
+      <uri>model://tr_jar</uri>
+      <pose>-0.3 -1.0 1.01 0 0 0</pose>
+      <!-- <pose>-0.3 -1.1 1.01 0 0 0</pose> -->
+      <!-- <pose>0.85 -0.3 0.07 0 0 0</pose> -->
+      <static>false</static>
+      <!-- <pose>-0.3 0 1.015 0 0 0</pose> -->
+    </include>
+    <population name="marbles">
+      <model name="marbles">
+        <include>
+          <static>false</static>
+          <uri>model://marble_1_5cm</uri>
+        </include>
+      </model>
+      <!-- <pose>-0.3 0 1.5 0 0 0</pose> -->
+      <!-- 0.33 was possibly clipping into bottom of jar - fell through when jar was picked up -->
+      <pose>-0.45 -1.0 1.36 0 0 0</pose>
+      <!-- <pose>-0.45 -1.1 1.36 0 0 0</pose> -->
+      <!-- just putting into container for now -->
+      <!-- <pose>0.75 0.02 0.35 0 0 0</pose> -->
+      <box>
+        <size>0.2 0.2 0.5</size>
+      </box>
+      <model_count>1</model_count>
+      <distribution>
+        <type>linear-z</type>
+      </distribution>
+    </population>
+    <include>
+      <uri>model://tr_box</uri>
+      <pose>0.35 -1.0 1.01 0 0 1.5708</pose>
+      <!-- <pose>0.35 -1.1 1.01 0 0 1.5708</pose> -->
+      <!-- <pose>0.75 0 0.0665 0 0 0</pose> -->
+      <static>false</static>
+      <!-- <pose>0.3 0 1.015 0 0 0</pose> -->
+    </include>
+    <physics type='ode'>
+      <!-- <enable_physics>true</enable_physics> -->
+      <max_step_size>0.001</max_step_size>
+      <!-- <real_time_factor>1</real_time_factor> -->
+      <real_time_update_rate>0</real_time_update_rate>
+      <gravity>0 0 -9.8</gravity>
+      <ode>
+        <solver>
+          <!-- <type>quick</type> -->
+          <!-- <iters>5</iters>  -->
+          <!-- default 20 quickstep iters -->
+          <island_threads>1</island_threads>
+          <thread_position_correction>1</thread_position_correction>
+        </solver>
+      </ode>
+    </physics>
+  </world>
+</sdf>
