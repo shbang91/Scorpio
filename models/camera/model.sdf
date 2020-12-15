@@ -2,10 +2,9 @@
 <sdf version="1.4">
   <model name="camera">
     <include>
-      <uri>model://realsense_camera</uri>
+      <uri>model://realsense_camera_gazebo</uri>
 
       <!-- facing arm -->
-      <!-- <pose>0.0 -1.5 1.7 -1.57 0.785 1.57</pose> -->
       <pose>0.0 -1.3 1.7 0.0 0.785 1.57</pose>
 
       <!-- from behind arm -->
@@ -13,9 +12,6 @@
 
       <!-- facing from right side of arm -->
       <!-- <pose>-0.44 -0.564 1.533 1.57 .785 0</pose> -->
-
-      <!-- not sure -->
-      <!-- <pose>-0.3 -0.7 1.4 1.57 .785 0</pose> -->
 
       <!-- straight down better pos (arm occludes much of table) -->
       <!-- <pose>0.0 -0.564 2.0 1.57 1.57 0</pose> -->
@@ -25,7 +21,7 @@
     </include>
     <joint name="camera_joint" type="fixed">
       <parent>world</parent>
-      <child>realsense_camera::link</child>
+      <child>realsense_camera_gazebo::link</child>
     </joint>
   </model>
 </sdf>

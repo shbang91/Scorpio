@@ -44,13 +44,9 @@ EW notes on additional changes:
 		2. In PnC/Scorpio/ScorpioInterface.cpp line 26, change RobotModel constructor
 		    call to point to this new URDF
 		3. Make sure you have the gazebo_grasp_plugin either from https://github.com/JenniferBuehler/gazebo-pkgs or included under third_party in https://github.com/Kinovarobotics/ros_kortex
-	-Pour demo:
-		- Change models such that they are small and light enough for gripper to pick up
-			1. tr_jar - change scale to 0.022 0.022 0.0393701 and mass to 0.001 in sdf
-			2. marbles - change mass to 0.0001
-	-Vision concerns - not necessary for object detection to work in some capacity, but necessary for pour demo to work:
-		- TODO - make more detailed and comprehensive list
-		- plane masking
-		- table height
-		- Align sensors to center in realsense model
-		- ...
+			- I personally have it included as part of the ros_kortex pacakge, but I assume the usual build pattern after cloning the standalone repo of cd gazebo-pkgs/gazebo_grasp_plugin; mkdir build; cd build; cmake ..; make -jnproc; sudo make install should work
+	-Models: All modified models utilized within the various worlds are under the models
+	           subdirectory, make sure to add it to your $GAZEBO_MODEL_PATH as outlined
+	           above.
+	-Vision: If you're trying to use this in conjunction with ADE vision, refer to the
+		wiki at (TODO: make and link wiki entry, for now contact Eric Wyss with any concerns) for potential config issues

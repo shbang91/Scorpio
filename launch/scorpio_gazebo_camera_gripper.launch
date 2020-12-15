@@ -28,6 +28,7 @@ args="-urdf -param /robot_description -model scorpio_with_camera -x 0 -y 0 -z 0
         -J joint10 0.35904
         -J joint11 0.68142" />
 
+<!-- race condition with PnC where PnC crashes if camera spawns in too soon, added delay -->
 <node name="urdf_spawner_2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 args="-file $(find gazebo_scorpio_plugin)/models/camera/model.sdf -sdf -model camera -x 0 -y 0 -z 0
     -robot_namespace /scorpio_with_camera
