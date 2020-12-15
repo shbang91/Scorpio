@@ -33,12 +33,12 @@ add_service_files(
   GripperCommandSrv.srv
 )
 
-generate_messages(DEPENDENCIES std_msgs geometry_msgs control_msgs)
-
 link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
 
-catkin_package(DEPENDS roscpp rospy gazebo_ros message_runtime std_msgs geometry_msgs)
+generate_messages(DEPENDENCIES std_msgs geometry_msgs control_msgs)
+
+catkin_package(DEPENDS roscpp rospy gazebo_ros message_runtime std_msgs geometry_msgs control_msgs)
 
 #dart
 #find_package(DART 6.9 REQUIRED COMPONENTS utils-urdf gui-osg CONFIG)

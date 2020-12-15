@@ -6,6 +6,7 @@
 #include "geometry_msgs/Pose.h"
 #include "sensor_msgs/JointState.h"
 // #include "control_msgs/GripperCommandAction.h"
+#include <gazebo_scorpio_plugin/GripperCommandSrv.h>
 #include <gazebo_scorpio_plugin/MoveEndEffectorToSrv.h>
 #include <actionlib/client/simple_action_client.h>
 

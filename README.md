@@ -36,3 +36,21 @@ Will's branch stuff:
 
 I've not tested if things work without this step, but currently I recommend cloning and following the build instructions
 for this repo: https://github.com/SyrianSpock/realsense_gazebo_plugin
+
+EW notes on additional changes:
+	-Gripper (TODO make branch in PnC reflecting these changes):
+		1. Copy modified scorpio URDF compatible with PnC under models to 
+		    PnC/RobotModel/Robot/Scorpio/Scorpio_Kin_robotiq_gripper.urdf
+		2. In PnC/Scorpio/ScorpioInterface.cpp line 26, change RobotModel constructor
+		    call to point to this new URDF
+		3. Make sure you have the gazebo_grasp_plugin either from https://github.com/JenniferBuehler/gazebo-pkgs or included under third_party in https://github.com/Kinovarobotics/ros_kortex
+	-Pour demo:
+		- Change models such that they are small and light enough for gripper to pick up
+			1. tr_jar - change scale to 0.022 0.022 0.0393701 and mass to 0.001 in sdf
+			2. marbles - change mass to 0.0001
+	-Vision concerns - not necessary for object detection to work in some capacity, but necessary for pour demo to work:
+		- TODO - make more detailed and comprehensive list
+		- plane masking
+		- table height
+		- Align sensors to center in realsense model
+		- ...

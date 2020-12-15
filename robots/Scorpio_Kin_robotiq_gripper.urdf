@@ -318,7 +318,7 @@
     <parent link="link9"/>
     <child link="scorpio_wrist_pitch"/>
     <axis xyz="0 1 0"/>
-    <limit effort="200" lower="-2.2000000" upper="1.0000000" velocity="0"/>
+    <!-- <limit effort="200" lower="-2.2000000" upper="1.0000000" velocity="0"/> -->
   </joint>
 
   <link name="scorpio_wrist_pitch">
@@ -338,14 +338,14 @@
     </visual>
   </link>
   <!--===========================WRIST ROLL PRE FT===========================-->
-   <!--<joint name="joint11" type="continuous"> -->
-  <joint name="joint11" type="revolute">
+   <joint name="joint11" type="continuous"> 
+  <!-- <joint name="joint11" type="revolute"> -->
      <!--<joint name="wrist_roll" type="fixed"> -->
     <origin rpy="0 0 1.5708" xyz="0 0.04372 -0.01728"/>
     <parent link="scorpio_wrist_pitch"/>
     <child link="gripper_attachment_point"/>
     <axis xyz="0 0 1"/>
-    <limit effort="200" lower="-3.1416" upper="3.1416" velocity="0"/>
+    <!-- <limit effort="200" lower="-3.1416" upper="3.1416" velocity="0"/> -->
   </joint>
   <link name="gripper_attachment_point">
     <inertial>
@@ -1488,7 +1488,8 @@
           <max_grip_count>10</max_grip_count>
           <release_tolerance>0.001</release_tolerance>
           <!-- <release_tolerance>0.0001</release_tolerance> -->
-          <disable_collisions_on_attach>true</disable_collisions_on_attach>
+          <disable_collisions_on_attach>false</disable_collisions_on_attach>
+          <!-- <disable_collisions_on_attach>true</disable_collisions_on_attach> -->
           <contact_topic>__default_topic__</contact_topic>
       </plugin>
 
