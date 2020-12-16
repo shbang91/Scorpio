@@ -375,7 +375,7 @@ To see what log statements should actually be printed during execution, you'd ha
 ## Run Demo
 
 After following all the prior instructions and having all of ADE/ROSADE, Vision, and
-  the Gazebo_scorpio_plugin along with all depenencies built and confifured correctly, 
+  the Gazebo_scorpio_plugin along with all depenencies built and configured correctly, 
   we should be ready to run the demo.
 
 In two separate terminals run
@@ -398,7 +398,11 @@ If all initializes correctly and runs, a bunch of GUIs should pop up for various
   In order the run the demo, either find or manually type in the following phrases:
 
 'Do you see the jar' - wait for response (will take longer because of initial plane seg)
+
 'Do you see the box' - wait for response
+
 'the jar is now open' - wait for response
+
 'I want marbles in the jar' - at this point the arm should start executing the pour
+
 (optional when the pour is complete) 'stop pouring' - the arm should reorient the jar
