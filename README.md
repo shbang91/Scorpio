@@ -41,6 +41,16 @@ for this repo: https://github.com/SyrianSpock/realsense_gazebo_plugin
 
 ## EW additional changes for pour demo
 
+Note: The current branch desired branches of all repos mentioned are:
+
+  gazebo_scorpio_plugin: thinking_robots_temp
+
+  PnC: Gazebo_Scorpio
+  
+  vision: master
+  
+  ADE: consolidation
+
 ## ADE
 
 1. Get Git Permissions:
@@ -121,10 +131,12 @@ Getting native vision set up can be a pain and copying the entire setup instruct
    seems redundant. For now please reach out to any of the group at TR and we will find
    a way to get you access to the setup instructions
 
-Note: only special instructions in terms of setup here is that vision should be 
-		configured to enable ROS
+In case you already have an account on the TR gitlabs, use this link:
+https://gitlab.thinkingrobots.ai/core/vision/wikis/home
 
-\*\*Note: The current branch of vision desired is the thinking_robots_temp branch
+Note: only special instructions in terms of setup here is that vision should be 
+		configured to enable ROS ('cd build; ccmake ..', enable USE_ROS and configure,
+		go to ADE directory, 'ant vision')
 
 ## Working Robotiq Gripper
 
@@ -135,8 +147,13 @@ TODO: make branch in PnC reflecting these changes
 Copy modified scorpio URDF compatible with PnC under models to 
 PnC/RobotModel/Robot/Scorpio/Scorpio_Kin_robotiq_gripper.urdf
 
-Then in PnC/Scorpio/ScorpioInterface.cpp line 26, change RobotModel constructor
-call to point to this new URDF
+Then in ${catkin_ws}/src/PnC/PnC/ScorpioPnC/ScorpioInterface.cpp, change the RobotModel 
+constructor call to point to this new URDF
+
+```
+robot_ = new RobotSystem(
+    4, THIS_COM "RobotModel/Robot/Scorpio/Scorpio_Kin_robotiq_gripper.urdf");
+```
 
 2. Install gazebo grasp fix plugin
 
@@ -158,6 +175,11 @@ TODO: at this point not sure make install is necessary or if adding it to the
   GAZEBO_PACKAGE_PATH is better/necessary. If you're following these instructions
   and find that one works and the other doesn't, please update the README or let me know
 
+TODO: You do need the model meshes that are currently located in the ros_kortex package
+	because the URDF points to that currently, for the immediate future please clone the
+	entire ros_kortex repo, I will work on transferring the meshes here and eliminating
+	the need for that ASAP
+
 ## Models
 
 All modified models utilized within the various worlds are under the models
@@ -168,6 +190,10 @@ All modified models utilized within the various worlds are under the models
 $ export GAZEBO_MODEL_PATH=~/${catkin_ws}/src/gazebo_scorpio_plugin/models:$GAZEBO_MODEL_PATH
 ```
 Or add this line to your \~/.bashrc file and 'source \~/.bashrc'
+
+TODO: Need to add ros_kortex gripper meshes to gazebo_scorpio_plugin
+
+issue with package_path - might need to also add path to ROS_PACKAGE_PATH
 
 ## Vision Config
 
