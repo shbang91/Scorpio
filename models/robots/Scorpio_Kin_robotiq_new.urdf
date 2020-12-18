@@ -70,7 +70,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-          <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_ground_hull.dae"/>
+          <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/scorpio_ground_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1"/>
@@ -95,7 +95,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_yaw1_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/scorpio_yaw1_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -119,7 +119,7 @@
     <visual>
       <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev1__l3_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/parallel__scorpio_elev1__l3_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -143,7 +143,7 @@
     <visual>
       <origin rpy="1.5708 0 0" xyz="0 0.075025 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev1__l2_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/parallel__scorpio_elev1__l2_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -167,7 +167,7 @@
     <visual>
       <origin rpy="1.5708 0 0" xyz="-0.22 0 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev1__l1_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/parallel__scorpio_elev1__l1_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -193,7 +193,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_yaw2_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/scorpio_yaw2_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -217,7 +217,7 @@
     <visual>
       <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev2__l3_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/parallel__scorpio_elev2__l3_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -241,7 +241,7 @@
     <visual>
       <origin rpy="1.5708 0 0" xyz="0 0.075025 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev2__l2_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/parallel__scorpio_elev2__l2_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -265,7 +265,7 @@
     <visual>
       <origin rpy="1.5708 0 0" xyz="-0.22 0 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/parallel__scorpio_elev2__l1_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/parallel__scorpio_elev2__l1_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -305,7 +305,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_wrist_skewed_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/scorpio_wrist_skewed_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -331,7 +331,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://gazebo_scorpio_plugin/robots/meshes/scorpio_wrist_pitch_hull.dae"/>
+        <mesh filename="package://gazebo_scorpio_plugin/models/robots/meshes/scorpio_wrist_pitch_hull.dae"/>
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
@@ -406,7 +406,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/robotiq_85_base_link_fine.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/robotiq_85_base_link_fine.STL" />
       </geometry>
       <material
         name="">
@@ -420,7 +420,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/robotiq_85_base_link_coarse.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/robotiq_85_base_link_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -446,7 +446,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_fine.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/outer_knuckle_fine.STL" />
       </geometry>
       <material
         name="">
@@ -460,7 +460,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_coarse.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/outer_knuckle_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -504,7 +504,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_fine.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/outer_finger_fine.STL" />
       </geometry>
       <material
         name="">
@@ -518,7 +518,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_coarse.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/outer_finger_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -557,7 +557,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_fine.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/inner_knuckle_fine.STL" />
       </geometry>
       <material
         name="">
@@ -571,7 +571,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_coarse.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/inner_knuckle_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -619,7 +619,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_fine.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/inner_finger_fine.STL" />
       </geometry>
       <material
         name="">
@@ -633,7 +633,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_coarse.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/inner_finger_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -681,7 +681,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_fine.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/inner_knuckle_fine.STL" />
       </geometry>
       <material
         name="">
@@ -695,7 +695,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_knuckle_coarse.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/inner_knuckle_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -743,7 +743,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_fine.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/inner_finger_fine.STL" />
       </geometry>
       <material
         name="">
@@ -757,7 +757,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/inner_finger_coarse.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/inner_finger_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -805,7 +805,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_fine.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/outer_knuckle_fine.STL" />
       </geometry>
       <material
         name="">
@@ -819,7 +819,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_knuckle_coarse.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/outer_knuckle_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -866,7 +866,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_fine.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/outer_finger_fine.STL" />
       </geometry>
       <material name="">
         <color rgba="0.1 0.1 0.1 1" />
@@ -878,7 +878,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://gazebo_scorpio_plugin/robots/meshes/outer_finger_coarse.STL" />
+          filename="package://gazebo_scorpio_plugin/models/robots/meshes/outer_finger_coarse.STL" />
       </geometry>
     </collision>
   </link>

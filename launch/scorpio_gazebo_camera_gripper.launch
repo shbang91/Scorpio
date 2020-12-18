@@ -10,7 +10,7 @@
 
 <!-- <node pkg="tf" type="static_transform_publisher" name="ade_camera_tf_publisher" args="0.0  0.0 0.0 0.00 1.57  0.00 camera ade_camera 100"/> -->
 
-<param name="robot_description" command="$(find xacro)/xacro --inorder $(find gazebo_scorpio_plugin)/robots/Scorpio_Kin_robotiq_gripper.urdf"/>
+<param name="robot_description" command="$(find xacro)/xacro --inorder $(find gazebo_scorpio_plugin)/models/robots/Scorpio_Kin_robotiq_gripper.urdf"/>
 
 <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 args="-urdf -param /robot_description -model scorpio_with_camera -x 0 -y 0 -z 0

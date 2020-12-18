@@ -155,6 +155,14 @@ robot_ = new RobotSystem(
     4, THIS_COM "RobotModel/Robot/Scorpio/Scorpio_Kin_robotiq_gripper.urdf");
 ```
 
+TODO: there is an issue using the same package:// or model:// syntax in the urdf that
+	is to be copied over to PnC, because PnC does not have a package.xml. I don't know
+	if we want to conform PnC to be used within a catkin_ws or not. For now, the URDF
+	assumes that PnC and this gazebo_scorpio_plugin root directories are under the same
+	parent directory (e.g. catkin_ws/src). If this is not the case on your system, for
+	now you will have to modify all the mesh filepaths in this URDF mentioned above so
+	that they are appropriate for your system.
+
 2. Install gazebo grasp fix plugin
 
 Make sure you have the gazebo_grasp_plugin either from 
@@ -190,10 +198,6 @@ All modified models utilized within the various worlds are under the models
 $ export GAZEBO_MODEL_PATH=~/${catkin_ws}/src/gazebo_scorpio_plugin/models:$GAZEBO_MODEL_PATH
 ```
 Or add this line to your \~/.bashrc file and 'source \~/.bashrc'
-
-TODO: Need to add ros_kortex gripper meshes to gazebo_scorpio_plugin
-
-issue with package_path - might need to also add path to ROS_PACKAGE_PATH
 
 ## Vision Config
 

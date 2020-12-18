@@ -8,7 +8,7 @@
 
 <!-- load robot -->
 <param name="robot_description"
-    textfile="$(find gazebo_scorpio_plugin)/robots/Scorpio_Kin_robotiq_new.urdf" />
+    textfile="$(find gazebo_scorpio_plugin)/models/robots/Scorpio_Kin_robotiq_new.urdf" />
 <!--<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />  -->
 <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
     args="-urdf -model scorpio -param robot_description
