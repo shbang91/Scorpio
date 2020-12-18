@@ -163,35 +163,14 @@ TODO: there is an issue using the same package:// or model:// syntax in the urdf
 	now you will have to modify all the mesh filepaths in this URDF mentioned above so
 	that they are appropriate for your system.
 
-2. Install gazebo grasp fix plugin
+2. Install ALL of ros_kortex, including the gazebo_grasp_plugin
 
-Make sure you have the gazebo_grasp_plugin either from 
-https://github.com/JenniferBuehler/gazebo-pkgs or included under third_party in
-https://github.com/Kinovarobotics/ros_kortex
-
-I personally have it included as part of the ros_kortex pacakge, but I assume the usual
-build pattern after cloning the standalone repo should work:
-```
-$ cd gazebo-pkgs/gazebo_grasp_plugin
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make -jnproc
-$ sudo make install
-```
-TODO: at this point not sure make install is necessary or if adding it to the
-  GAZEBO_PACKAGE_PATH is better/necessary. If you're following these instructions
-  and find that one works and the other doesn't, please update the README or let me know
-
-TODO: You do need the model meshes that are currently located in the ros_kortex package
-	because the URDF points to that currently, for the immediate future please clone the
-	entire ros_kortex repo, I will work on transferring the meshes here and eliminating
-	the need for that ASAP
+Follow the install instructions at https://github.com/Kinovarobotics/ros_kortex
 
 ## Models
 
 All modified models utilized within the various worlds are under the models
-  subdirectory, it seems that the above addition to the gazebo model path doesn't
+  subdirectory, the above addition to the gazebo model path doesn't
   catch these models. Please additionally run
 
 ```
@@ -381,6 +360,13 @@ help you do so. We will work on making this process more general as well as upda
 vision algorithms or adding heuristics to make it so this is not usually the case, but
 for now it will be necessary.
 
+Update: Instead of having to go into the source code to edit the primitive offsets,
+	you should now additionally be able to edit 
+	ade/com/scorpio/config/scorpio_gazebo.json to define these offsets. The offsets
+	correspond to the primitives MoveTo, MoveAbove, and startPouring in that order.
+	Offsets for all three methods need to be provided (even if all 0) in order for any
+	to work.
+
 ### Logging (both vision and ADE)
 
 So this section could be extremely long, but for now I will just point you to the two
@@ -403,6 +389,9 @@ To see what log statements should actually be printed during execution, you'd ha
  level set in the xml file.
 
 ## Run Demo
+
+(Optional) You may change the moving_duration parameter in 
+	PnC/Config/Scorpio/TEST/GRASPING_TEST.yaml to have the arm move quicker
 
 After following all the prior instructions and having all of ADE/ROSADE, Vision, and
   the Gazebo_scorpio_plugin along with all depenencies built and configured correctly, 
