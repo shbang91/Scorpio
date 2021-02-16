@@ -13,21 +13,41 @@
       <static>true</static>
     </include>
     <include>
-      <!-- tr_jar scale set to 0.022 0.022 0.0393701 -->
-      <!-- mass set to 0.001 -->
       <uri>model://tr_jar</uri>
-      <pose>-0.3 -0.7 1.01 0 0 0</pose>
+      <name>jar1</name>
+      <pose>0.1 -0.7 1.01 0 0 0</pose>
       <static>false</static>
     </include>
     <population name="marbles">
       <model name="marbles">
         <include>
           <static>false</static>
-          <!-- in marble.sdf change mass to 0.0001 in order for pour to work with Scorpio/PnC -->
           <uri>model://marble_1_5cm</uri>
         </include>
       </model>
-      <pose>-0.3 -0.7 1.36 0 0 0</pose>
+      <pose>0.1 -0.7 1.36 0 0 0</pose>
+      <box>
+        <size>0.2 0.2 0.5</size>
+      </box>
+      <model_count>10</model_count>
+      <distribution>
+        <type>linear-z</type>
+      </distribution>
+    </population>
+    <include>
+      <uri>model://tr_jar2</uri>
+      <name>jar2</name>
+      <pose>0.2 -0.7 1.01 0 0 0</pose>
+      <static>false</static>
+    </include>
+    <population name="marbles2">
+      <model name="marbles2">
+        <include>
+          <static>false</static>
+          <uri>model://marble_1_5cm</uri>
+        </include>
+      </model>
+      <pose>0.2 -0.7 1.36 0 0 0</pose>
       <box>
         <size>0.2 0.2 0.5</size>
       </box>
@@ -38,7 +58,11 @@
     </population>
     <include>
       <uri>model://tr_box</uri>
-      <pose>0.35 -0.8 1.01 0 0 1.5708</pose>
+      <pose>-0.23 -0.8 1.01 0 0 1.5708</pose>
+    </include>
+    <include>
+      <uri>model://bowl</uri>
+      <pose>0.38 -0.8 1.01 0 0 1.5708</pose>
     </include>
     <physics type='ode'>
       <!-- <enable_physics>true</enable_physics> -->
