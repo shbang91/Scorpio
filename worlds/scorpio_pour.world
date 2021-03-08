@@ -9,13 +9,13 @@
     </include>
     <include>
       <uri>model://table</uri>
-      <pose>0.2 -0.5 0.0 0 0 0</pose>
+      <pose>1.0 0.0 0.0 0 0 1.57</pose>
       <static>true</static>
     </include>
     <include>
       <uri>model://tr_jar</uri>
       <name>jar1</name>
-      <pose>0.1 -0.7 1.01 0 0 0</pose>
+      <pose>0.8 -0.1 1.01 0 0 0</pose>
       <static>false</static>
     </include>
     <population name="marbles">
@@ -25,7 +25,7 @@
           <uri>model://marble_1_5cm</uri>
         </include>
       </model>
-      <pose>0.1 -0.7 1.36 0 0 0</pose>
+      <pose>0.8 -0.1 1.36 0 0 0</pose>
       <box>
         <size>0.2 0.2 0.5</size>
       </box>
@@ -37,7 +37,7 @@
     <include>
       <uri>model://tr_jar2</uri>
       <name>jar2</name>
-      <pose>0.2 -0.7 1.01 0 0 0</pose>
+      <pose>0.7 0.1 1.01 0 0 0</pose>
       <static>false</static>
     </include>
     <population name="marbles2">
@@ -47,7 +47,7 @@
           <uri>model://marble_1_5cm</uri>
         </include>
       </model>
-      <pose>0.2 -0.7 1.36 0 0 0</pose>
+      <pose>0.7 0.1 1.36 0 0 0</pose>
       <box>
         <size>0.2 0.2 0.5</size>
       </box>
@@ -58,11 +58,11 @@
     </population>
     <include>
       <uri>model://tr_box</uri>
-      <pose>-0.23 -0.8 1.01 0 0 1.5708</pose>
+      <pose>1.1 0.3 1.01 0 0 0.0</pose>
     </include>
     <include>
       <uri>model://bowl</uri>
-      <pose>0.38 -0.8 1.01 0 0 1.5708</pose>
+      <pose>1.0 -0.3 1.01 0 0 1.5708</pose>
     </include>
     <physics type='ode'>
       <!-- <enable_physics>true</enable_physics> -->
