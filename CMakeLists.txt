@@ -31,6 +31,7 @@ add_service_files(
   FILES
   MoveEndEffectorToSrv.srv
   GripperCommandSrv.srv
+  InterruptSrv.srv
 )
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
@@ -67,3 +68,4 @@ target_link_libraries(${PROJECT_NAME}
                     ${GAZEBO_LIBRARIES}
                     ${PNC_LIBRARIES}
                     )
+add_dependencies(mock_node ${gazebo_scorpio_plugin_EXPORTED_TARGETS})
