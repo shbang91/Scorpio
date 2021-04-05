@@ -12,7 +12,7 @@
       <pose>1.0 0.0 0.0 0 0 1.57</pose>
       <static>true</static>
     </include>
-    <include>
+<!--    <include>
       <uri>model://tr_jar</uri>
       <name>jar1</name>
       <pose>0.8 -0.1 1.01 0 0 0</pose>
@@ -59,10 +59,10 @@
     <include>
       <uri>model://tr_box</uri>
       <pose>1.1 0.3 1.01 0 0 0.0</pose>
-    </include>
+    </include> -->
     <include>
       <uri>model://bowl</uri>
-      <pose>1.0 -0.3 1.01 0 0 1.5708</pose>
+      <pose>0.8 -0.3 1.01 0 0 1.5708</pose>
     </include>
     <physics type='ode'>
       <!-- <enable_physics>true</enable_physics> -->

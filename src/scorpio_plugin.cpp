@@ -17,6 +17,7 @@
 
 #include <gazebo_scorpio_plugin/MoveEndEffectorToSrv.h>
 #include <gazebo_scorpio_plugin/GripperCommandSrv.h>
+#include <gazebo_scorpio_plugin/InterruptSrv.h>
 #include <actionlib/client/simple_action_client.h>
 
 namespace gazebo {
@@ -45,6 +46,17 @@ namespace gazebo {
                 ((ScorpioInterface *) interface_)->MoveEndEffectorTo(pose.position.x, pose.position.y, pose.position.z,
                                                                      pose.orientation.x, pose.orientation.y,
                                                                      pose.orientation.z, pose.orientation.w);
+            }
+        }
+
+        bool InterruptSrv(gazebo_scorpio_plugin::InterruptSrv::Request &req,
+                          gazebo_scorpio_plugin::InterruptSrv::Response &res){
+            if (!((ScorpioInterface*) interface_)->IsReadyToMove()) {
+               std::cout << "Interruption command Received" << std::endl;
+               ((ScorpioInterface*) interface_)->Interrupt();
+                res.success = true;
+            }else{
+            res.success = false;
             }
         }
 
@@ -131,6 +143,7 @@ namespace gazebo {
             this->endeffPub_ = this->rosNode_->advertise<geometry_msgs::Pose>("endeff_pos", 10, this);
             this->endeffServer_ = this->rosNode_->advertiseService("MoveEndEffectorToSrv", &ScorpioPlugin::MoveEndEffectorToSrv, this);
             this->gripperServer_ = this->rosNode_->advertiseService("GripperCommandSrv", &ScorpioPlugin::GripperCommandSrv, this);
+            this->interruptServer_ = this->rosNode_->advertiseService("InterruptSrv", &ScorpioPlugin::InterruptSrv, this);
         }
 
         // Called by the world update start event
@@ -227,6 +240,7 @@ namespace gazebo {
         ros::Publisher endeffPub_;
         ros::ServiceServer endeffServer_;
         ros::ServiceServer gripperServer_;
+        ros::ServiceServer interruptServer_;
         sensor_msgs::JointState joint_msg_;
         geometry_msgs::Pose endeff_msg_;
     };

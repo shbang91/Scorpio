@@ -31,6 +31,7 @@ add_service_files(
   FILES
   MoveEndEffectorToSrv.srv
   GripperCommandSrv.srv
+  InterruptSrv.srv
 )
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
@@ -62,6 +63,7 @@ target_link_libraries(mock_node ${catkin_LIBRARIES})
 ##=============================================================================
 
 add_library(${PROJECT_NAME} SHARED src/scorpio_plugin.cpp)
+add_dependencies(${PROJECT_NAME} gazebo_scorpio_plugin_generate_messages_cpp)
 target_link_libraries(${PROJECT_NAME}
                     ${catkin_LIBRARIES}
                     ${GAZEBO_LIBRARIES}
